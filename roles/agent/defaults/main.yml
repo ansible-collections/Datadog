@@ -1,5 +1,5 @@
 ---
-role_version: 4.18.0
+role_version: 4.19.0
 
 # define if the datadog-agent services should be enabled
 datadog_enabled: yes
@@ -29,6 +29,9 @@ datadog_additional_checks: []
 
 # set this to `true` to delete default checks
 datadog_disable_default_checks: false
+
+# set this to `true` to delete example checks
+datadog_disable_example_checks: false
 
 # default user/group
 datadog_user: dd-agent
