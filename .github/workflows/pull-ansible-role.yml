@@ -5,15 +5,14 @@ on: [workflow_dispatch]
 jobs:
   execute:
     runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-    - uses: action/checkout@master
-      with:
-        name: DataDog/ansible-datadog
-        path: roles/
-    - name: Rename ansible role and edit install info file
-      run: |
-        - rm -rf roles/agent/
-        - mv roles/ansible-datadog/ roles/agent
+    steps:
+      - uses: actions/checkout@v3
+      - uses: action/checkout@master
+        with:
+          name: DataDog/ansible-datadog
+          path: roles/
+      - name: Rename ansible role and edit install info file
+        run: |
+          - ls roles/
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
+            # - uses: stefanzweifel/git-auto-commit-action@v4
