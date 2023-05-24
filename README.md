@@ -1,7 +1,7 @@
 # Datadog Collection
 
 This repository contains the ``datadog.dd`` Ansible Collection. This collection only contains the Ansible Datadog Role at the moment but will be used to add more datadog features.
-This role can be access through ```datadog.dd.agent`` allowing to install and configure the Datadog Agent and integrations. By default the agent v7 is installed.
+This role can be access through ``datadog.dd.agent`` allowing to install and configure the Datadog Agent and integrations. By default the agent v7 is installed.
 
 ## Setup
 
