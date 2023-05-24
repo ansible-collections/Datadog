@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/checkout@master
         with:
-          name: DataDog/ansible-datadog
+          repository: DataDog/ansible-datadog
           path: roles/agent
       - name: Edit install info file
         run: |
