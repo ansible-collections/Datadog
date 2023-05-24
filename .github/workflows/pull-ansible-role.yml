@@ -13,7 +13,5 @@ jobs:
           path: roles/agent
       - name: Edit install info file
         run: |
-          ls roles/agent
-          head roles/agent/README.md
-
-            # - uses: stefanzweifel/git-auto-commit-action@v4
+          sed -i "s/datadog_role/datadog_collection_agent_role/g" roles/agent/templates/install_info.j2
+      - uses: stefanzweifel/git-auto-commit-action@v4

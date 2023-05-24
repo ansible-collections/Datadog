@@ -1,7 +1,7 @@
 # Ansible Datadog Role
 
 The Ansible Datadog role installs and configures the Datadog Agent and integrations. Version `4` of the role installs the Datadog Agent v7 by default.
-SOME DATA
+
 ## Setup
 
 ### Requirements
