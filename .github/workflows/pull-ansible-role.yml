@@ -14,5 +14,6 @@ jobs:
       - name: Edit install info file
         run: |
           ls roles/agent
+          head roles/agent/README.md
 
             # - uses: stefanzweifel/git-auto-commit-action@v4
