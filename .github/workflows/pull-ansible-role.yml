@@ -14,7 +14,6 @@ jobs:
       - name: Cleanup checked out repository
         run: |
           find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -name '.*' -type f -exec rm -r {} \;
-          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -name '.*' -type d -depth 1 -exec rm -r {} \;
           touch roles/agent/.gitkeep
       - name: Edit install info file
         run: |
