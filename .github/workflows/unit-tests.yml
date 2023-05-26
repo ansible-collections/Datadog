@@ -24,8 +24,6 @@ jobs:
       steps:
         - run: |
             python -c "assert set([
-            '${{ needs.linters.result }}'
-            ]) == {'success'}"
+            '${{ needs.linters.result }}']) == {'success'}"
         - run: |
-            python -c "assert '${{ needs.sanity.result }}'
-            in ['success', 'failure']"
+            python -c "assert '${{ needs.sanity.result }}' in ['success', 'failure']"
