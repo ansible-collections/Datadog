@@ -24,6 +24,6 @@ ansible-galaxy collection install datadog.dd
 ```
 
 ### Collection role list
-  - ``datadog.dd.agent`` : Instllation and configuration of the Datadog agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
+  - ``datadog.dd.agent`` : Installation and configuration of the Datadog agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
 
 
