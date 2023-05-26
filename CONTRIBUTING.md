@@ -2,8 +2,6 @@
 
 The code is licensed under the Apache License 2.0 (see LICENSE for details).
 
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-Datadog.datadog-660198.svg)](https://galaxy.ansible.com/Datadog/datadog/)
-
 First of all, thanks for contributing!
 
 This document provides some basic guidelines for contributing to this repository. To propose improvements, feel free to submit a PR.
