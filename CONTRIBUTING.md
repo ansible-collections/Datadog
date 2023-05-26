@@ -3,7 +3,6 @@
 The code is licensed under the Apache License 2.0 (see LICENSE for details).
 
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-Datadog.datadog-660198.svg)](https://galaxy.ansible.com/Datadog/datadog/)
-[![Build Status](https://travis-ci.org/DataDog/ansible-datadog.svg?branch=master)](https://travis-ci.org/DataDog/ansible-datadog)
 
 First of all, thanks for contributing!
 
@@ -16,7 +15,7 @@ This document provides some basic guidelines for contributing to this repository
 
 ## Pull Requests
 
-Have you fixed a bug or written a new feature and want to share it? Many thanks!
+All changes concerning the `datadog.dd.agent` role must be directed to the [ansible-datadog](https://github.com/DataDog/ansible-datadog) repository. If your change concern the collection in itself we're more than happy to review your contribution in this repository !
 
 In order to ease/speed up our review, here are some items you can check/improve when submitting your PR:
 
@@ -25,8 +24,6 @@ In order to ease/speed up our review, here are some items you can check/improve 
   * Preferably, make sure that all unit tests pass locally and some relevant kitchen tests.
   * Summarize your PR with an explanatory title and a message describing your changes, cross-referencing any related bugs/PRs.
   * Open your PR against the `master` branch.
-
-Your pull request must pass all CI tests before we merge it. If you see an error and don't think it's your fault, it may not be! [Join us on Slack][slack] or send us an email, and together we'll get it sorted out.
 
 ### Keep it small, focused
 

@@ -1,4 +1,4 @@
-name: build the collection
+name: collection-build
 
 on: [push]
 
