@@ -11,7 +11,7 @@ jobs:
               run: |
                 galaxy_collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
                 install_info_collection_version=$(cat roles/agent/templates/install_info.j2| grep -o "datadog_collection_.*_agent_role" | awk -F_ '{ print $3 }')
-                test "$galaxy_collection_version" = "$install_info_collection_version"    
+                test "$galaxy_collection_version" = "$install_info_collection_version"
     linters:
       uses: ansible-network/github_actions/.github/workflows/tox-linters.yml@main
     sanity:
