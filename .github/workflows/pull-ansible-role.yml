@@ -1,4 +1,4 @@
-name: Pull ansible-datadog
+name: Sync ansible-datadog role inside of roles/agent
 
 on: [workflow_dispatch]
 
@@ -11,6 +11,10 @@ jobs:
         with:
           repository: DataDog/ansible-datadog
           path: roles/agent
+      - name: Cleanup checked out repository
+        run: |
+          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -name '.gitkeep' -type f -exec rm -r {} \;
+          touch roles/agent/.gitkeep
       - name: Edit install info file
         run: |
           collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
