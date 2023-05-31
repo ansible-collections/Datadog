@@ -39,13 +39,21 @@ If your commit is only shipping documentation changes or example files, and is a
 
 Rebase your changes on `master` and squash your commits whenever possible. This keeps history cleaner and easier to revert things. It also makes developers happier!
 
+### Code of Conduct
+
+This collection follows the Ansible project's [Code of Conduct](https://docs.ansible.com/ansible/devel/community/code_of_conduct.html). Please read and familiarize yourself with this document.
+
+### More details
+
+Take a look a the [Ansible Community Guide](https://docs.ansible.com/ansible/latest/community/index.html) for more details about how to contribute to Ansible.
+
 ## Development
 
 To contribute, follow the contributing guidelines above.
 
 ### Manual testing
 
-To test the roles provided by this project, you can follow the instructions in the manual tests [readme.md][tests].
+To test the roles provided by this project, you can follow the instructions in the [manual tests](https://github.com/DataDog/ansible-datadog/blob/main/manual_tests/readme.md).
 
 ## Author Information
 
