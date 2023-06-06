@@ -1,6 +1,7 @@
 """
 Invoke entrypoint, import here all the tasks we want to make available
 """
+from __future__ import absolute_import, division, print_function
 from invoke import Collection
 
 from . import role
