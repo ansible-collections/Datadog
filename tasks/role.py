@@ -28,13 +28,16 @@ def generate_fqcn_format_map(ctx):
     fqcn_data = json.loads(output.stdout)
     if not fqcn_data:
         return {}
-    print(fqcn_data)
     fqcn_format_hash = {}
     for fqcn_error in fqcn_data:
-        file_path = fqcn_error["location"]["path"]
-        task_line_nb = fqcn_error["location"]["lines"]["begin"]
-        replacement = re.search(REPLACEMENT_REGEX, fqcn_error["content"]["body"])
-        action = re.search(DESCRIPTION_REGEX, fqcn_error["description"])
+        try:
+            file_path = fqcn_error["location"]["path"]
+            task_line_nb = fqcn_error["location"]["lines"]["begin"]
+            replacement = re.search(REPLACEMENT_REGEX, fqcn_error["content"]["body"])
+            action = re.search(DESCRIPTION_REGEX, fqcn_error["description"])
+        except KeyError as e:
+            print("[WARN] failed to parse the following with error : ", e)
+            print(fqcn_error)
         if not replacement or not action:
             replacement = re.search(WIN_REGEX, fqcn_error["description"])
             action = re.search(WIN_REGEX, fqcn_error["content"]["body"])
