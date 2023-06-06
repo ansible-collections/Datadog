@@ -4,15 +4,15 @@
     win_install_args: '{{ win_install_args }} DDAGENTUSER_NAME={{ datadog_windows_ddagentuser_name
       }}'
 - name: Check existing config file Directory
-  register: config_root_from_registry
-  ansible.windows.win_reg_stat:
+  win_reg_stat:
     path: HKLM:\SOFTWARE\Datadog\Datadog Agent
     name: ConfigRoot
+  register: config_root_from_registry
 - name: Check existing installPath Directory
-  register: install_path_from_registry
-  ansible.windows.win_reg_stat:
+  win_reg_stat:
     path: HKLM:\SOFTWARE\Datadog\Datadog Agent
     name: InstallPath
+  register: install_path_from_registry
 - name: Validate config path
   when: ( (config_root_from_registry.exists) and (datadog_windows_config_files_dir
     | length > 0 ) and (config_root_from_registry.value | regex_replace('\\\\$','')
