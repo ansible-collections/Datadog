@@ -1,3 +1,2 @@
----
 - name: Gather Ansible Facts
-  setup:
+  ansible.builtin.setup: null

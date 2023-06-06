@@ -15,6 +15,7 @@ jobs:
         run: |
           find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -name '.gitkeep' -type f -exec rm -r {} \;
           touch roles/agent/.gitkeep
+          inv role.format-fqcn
       - name: Edit install info file
         run: |
           collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
