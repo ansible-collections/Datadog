@@ -23,6 +23,8 @@ def generate_fqcn_format_map(ctx):
     """
     output = ctx.run("ansible-lint -t fqcn -x yaml -f json -q || true", hide=True)
     fqcn_data = json.loads(output.stdout)
+    if not fqcn_data:
+        return {}
     fqcn_format_hash = {}
     for fqcn_error in fqcn_data:
         file_path = fqcn_error['location']['path']
