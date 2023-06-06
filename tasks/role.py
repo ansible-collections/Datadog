@@ -5,6 +5,9 @@ import json
 from invoke import task
 import re
 
+__metaclass__ = type
+
+
 DESCRIPTION_REGEX = r"\(([a-zA-Z\._]+)\)"
 REPLACEMENT_REGEX = r"`([a-zA-Z\._]+)`"
 WIN_REGEX = r"`([a-zA-Z\._]+)`"
