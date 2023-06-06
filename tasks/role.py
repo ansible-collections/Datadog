@@ -4,9 +4,9 @@ import json
 from invoke import task
 import re
 
-DESCRIPTION_REGEX = "\(([a-zA-Z\._]+)\)"
-REPLACEMENT_REGEX = "`([a-zA-Z\._]+)`"
-WIN_REGEX = "`([a-zA-Z\._]+)`"
+DESCRIPTION_REGEX = r"\(([a-zA-Z\._]+)\)"
+REPLACEMENT_REGEX = r"`([a-zA-Z\._]+)`"
+WIN_REGEX = r"`([a-zA-Z\._]+)`"
 
 
 class SafeLineLoader(SafeLoader):
