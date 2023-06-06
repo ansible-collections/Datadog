@@ -36,8 +36,9 @@ def generate_fqcn_format_map(ctx):
             replacement = re.search(REPLACEMENT_REGEX, fqcn_error["content"]["body"])
             action = re.search(DESCRIPTION_REGEX, fqcn_error["description"])
         except KeyError as e:
-            print("[WARN] failed to parse the following with error : ", e)
+            print("[WARN] failed to parse the following with key : ", e)
             print(fqcn_error)
+            continue
         if not replacement or not action:
             replacement = re.search(WIN_REGEX, fqcn_error["description"])
             action = re.search(WIN_REGEX, fqcn_error["content"]["body"])
