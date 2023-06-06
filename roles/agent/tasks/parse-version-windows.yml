@@ -1,18 +1,12 @@
-# NOTE: This won't work with rc / beta builds.
 - name: Get Windows Agent version
-  win_shell: |
-    $product_name = "Datadog Agent"
-    $query = "Select Name,IdentifyingNumber,InstallDate,InstallLocation,ProductID,Version FROM Win32_Product where Name like '$product_name%'"
-    $installs = Get-WmiObject -query $query
-
-    if (!$installs -or ($installs.Count -eq 0) -or ($installs.Count -gt 1)) {
-      Write-Host ""
-    } else {
-      $ddmaj, $ddmin, $ddpatch, $ddbuild = $installs.Version.split(".")
-      Write-Host "$($ddmaj).$($ddmin).$($ddpatch)"
-    }
   register: datadog_version_check_win
   changed_when: false
   failed_when: false
-  check_mode: no
+  check_mode: false
   when: ansible_facts.os_family == "Windows"
+  ansible.windows.win_shell: "$product_name = \"Datadog Agent\"\n$query = \"Select\
+    \ Name,IdentifyingNumber,InstallDate,InstallLocation,ProductID,Version FROM Win32_Product\
+    \ where Name like '$product_name%'\"\n$installs = Get-WmiObject -query $query\n\
+    \nif (!$installs -or ($installs.Count -eq 0) -or ($installs.Count -gt 1)) {\n\
+    \  Write-Host \"\"\n} else {\n  $ddmaj, $ddmin, $ddpatch, $ddbuild = $installs.Version.split(\"\
+    .\")\n  Write-Host \"$($ddmaj).$($ddmin).$($ddpatch)\"\n}\n"
