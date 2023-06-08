@@ -60,10 +60,12 @@ def format_fqcn(ctx):
         content = fd.read()
         for replacement, action in fqcn_format_hash[file]:
             content = re.sub(f"^([ \t]+){action}:", r"\1" + replacement + ":", content)
-            change_count+=1
+            change_count += 1
 
         fd.seek(0)
         fd.write(content)
         fd.truncate()
         fd.close()
-    print(f"FQCN format ended successfully with a total of {change_count} changes made.")
+    print(
+        f"FQCN format ended successfully with a total of {change_count} changes made."
+    )
