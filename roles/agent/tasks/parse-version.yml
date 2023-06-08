@@ -1,96 +1,103 @@
+---
 - name: Parse Agent version
+  ansible.builtin.set_fact:
+    agent_version: "{{ datadog_agent_version | regex_search(regexp, '\\g<epoch>', '\\g<major>', '\\g<minor>', '\\g<bugfix>', '\\g<suffix>', '\\g<release>') }}"
   vars:
     regexp: (?:(?P<epoch>[0-9]+):)?(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<bugfix>[0-9]+)(?P<suffix>(?:~|-)[^0-9\s-]+[^-\s]*)?(?:-(?P<release>[0-9]+))?
-  ansible.builtin.set_fact:
-    agent_version: '{{ datadog_agent_version | regex_search(regexp, ''\g<epoch>'',
-      ''\g<major>'', ''\g<minor>'', ''\g<bugfix>'', ''\g<suffix>'', ''\g<release>'')
-      }}'
+
 - name: Set version vars
   ansible.builtin.set_fact:
-    datadog_epoch: '{{ agent_version.0 | default('''', true) | string }}'
-    datadog_major: '{{ agent_version.1 | default('''', true) | string }}'
-    datadog_minor: '{{ agent_version.2 | default('''', true) | string }}'
-    datadog_bugfix: '{{ agent_version.3 | default('''', true) | string }}'
-    datadog_suffix: '{{ agent_version.4 | default('''', true) | string }}'
-    datadog_release: '{{ agent_version.5 | default('''', true) | string }}'
+    datadog_epoch: "{{ agent_version.0 | default('', true) | string }}"
+    datadog_major: "{{ agent_version.1 | default('', true) | string }}"
+    datadog_minor: "{{ agent_version.2 | default('', true) | string }}"
+    datadog_bugfix: "{{ agent_version.3 | default('', true) | string }}"
+    datadog_suffix: "{{ agent_version.4 | default('', true) | string }}"
+    datadog_release: "{{ agent_version.5 | default('', true) | string }}"
+
 - name: Fill empty version epoch with default
+  ansible.builtin.set_fact:
+    datadog_epoch: "1"
   when: datadog_epoch | length == 0
-  ansible.builtin.set_fact:
-    datadog_epoch: '1'
+
 - name: Fill empty version release with default
-  when: datadog_release | length == 0
   ansible.builtin.set_fact:
-    datadog_release: '1'
-- name: Stop play if datadog_agent_version and datadog_agent_major_version are not
-    compatible
-  when: datadog_agent_major_version | length > 0 and datadog_major != datadog_agent_major_version
+    datadog_release: "1"
+  when: datadog_release | length == 0
+
+- name: Stop play if datadog_agent_version and datadog_agent_major_version are not compatible
   ansible.builtin.fail:
-    msg: The provided major version {{ datadog_agent_major_version }} is not compatible
-      with the version {{ datadog_major }} deduced from datadog_agent_version ({{
-      datadog_agent_version }}). Aborting play.
+    msg: "The provided major version {{ datadog_agent_major_version }} is not compatible with the version {{ datadog_major }}
+      deduced from datadog_agent_version ({{ datadog_agent_version }}). Aborting play."
+  when: datadog_agent_major_version | length > 0 and datadog_major != datadog_agent_major_version
+
 - name: Set datadog_agent_major_version to deduced value from datadog_agent_version
   ansible.builtin.set_fact:
-    datadog_agent_major_version: '{{ datadog_major }}'
+    datadog_agent_major_version: "{{ datadog_major }}"
+
 - name: Set helper variables
   ansible.builtin.set_fact:
-    datadog_agent_linux_version: '{{ datadog_epoch }}:{{ datadog_major }}.{{ datadog_minor
-      }}.{{ datadog_bugfix }}{{ datadog_suffix }}-{{ datadog_release }}'
-    datadog_rpm_version_finding_cmd: rpm -q --qf '%{EPOCH}:%{VERSION}-%{RELEASE}'
-      {{ datadog_agent_flavor }}
+    datadog_agent_linux_version: "{{ datadog_epoch }}:{{ datadog_major }}.{{ datadog_minor }}.{{ datadog_bugfix }}{{ datadog_suffix }}-{{ datadog_release }}"
+    datadog_rpm_version_finding_cmd: "rpm -q --qf '%{EPOCH}:%{VERSION}-%{RELEASE}' {{ datadog_agent_flavor }}"
+
 - name: Set OS-specific versions
+  # NOTE: if changing these, make sure the format correspond with values in datadog_version_finding_cmds below
   ansible.builtin.set_fact:
-    datadog_agent_debian_version: '{{ datadog_agent_linux_version }}'
-    datadog_agent_redhat_version: '{{ datadog_agent_linux_version }}'
-    datadog_agent_suse_version: '{{ datadog_agent_linux_version }}'
-    datadog_agent_windows_version: '{{ datadog_major }}.{{ datadog_minor }}.{{ datadog_bugfix
-      }}{{ datadog_suffix }}'
-    datadog_agent_macos_version: '{{ datadog_major }}.{{ datadog_minor }}.{{ datadog_bugfix
-      }}{{ datadog_suffix }}'
+    datadog_agent_debian_version: "{{ datadog_agent_linux_version }}"
+    datadog_agent_redhat_version: "{{ datadog_agent_linux_version }}"
+    datadog_agent_suse_version: "{{ datadog_agent_linux_version }}"
+    datadog_agent_windows_version: "{{ datadog_major }}.{{ datadog_minor }}.{{ datadog_bugfix }}{{ datadog_suffix }}"
+    datadog_agent_macos_version: "{{ datadog_major }}.{{ datadog_minor }}.{{ datadog_bugfix }}{{ datadog_suffix }}"
+
 - name: Construct commands to find Agent version
   ansible.builtin.set_fact:
     datadog_version_finding_cmds:
-      Debian: dpkg -s {{ datadog_agent_flavor }} | grep '^Version:' | awk '{print
-        $2}'
-      RedHat: '{{ datadog_rpm_version_finding_cmd }}'
-      Rocky: '{{ datadog_rpm_version_finding_cmd }}'
-      AlmaLinux: '{{ datadog_rpm_version_finding_cmd }}'
-      Suse: '{{ datadog_rpm_version_finding_cmd }}'
+      Debian: "dpkg -s {{ datadog_agent_flavor }} | grep '^Version:' | awk '{print $2}'"
+      RedHat: "{{ datadog_rpm_version_finding_cmd }}"
+      Rocky: "{{ datadog_rpm_version_finding_cmd }}"
+      AlmaLinux: "{{ datadog_rpm_version_finding_cmd }}"
+      Suse: "{{ datadog_rpm_version_finding_cmd }}"
+
 - name: Create OS-specific version dict
   ansible.builtin.set_fact:
     datadog_agent_os2version:
-      Debian: '{{ datadog_agent_debian_version }}'
-      RedHat: '{{ datadog_agent_redhat_version }}'
-      Rocky: '{{ datadog_agent_redhat_version }}'
-      AlmaLinux: '{{ datadog_agent_redhat_version }}'
-      Suse: '{{ datadog_agent_suse_version }}'
-      Windows: '{{ datadog_agent_windows_version }}'
-      Darwin: '{{ datadog_agent_macos_version }}'
+      Debian: "{{ datadog_agent_debian_version }}"
+      RedHat: "{{ datadog_agent_redhat_version }}"
+      Rocky: "{{ datadog_agent_redhat_version }}"
+      AlmaLinux: "{{ datadog_agent_redhat_version }}"
+      Suse: "{{ datadog_agent_suse_version }}"
+      Windows: "{{ datadog_agent_windows_version }}"
+      Darwin: "{{ datadog_agent_macos_version }}"
+
 - name: Get Linux Agent version
+  ansible.builtin.shell: "{{ datadog_version_finding_cmds[ansible_facts.os_family] }}" # noqa command-instead-of-shell - We need shell because of pipes
   register: datadog_version_check_linux
   changed_when: false
   failed_when: false
   check_mode: false
   when: ansible_facts.system is defined and ansible_facts.system == "Linux"
-  ansible.builtin.shell: '{{ datadog_version_finding_cmds[ansible_facts.os_family]
-    }}'
+
+# The task is win_shell, so if users don't have the "ansible.windows" collection installed,
+# parsing the task would fail even if the host is not Windows. By hiding the task inside
+# a conditionally included file, we can prevent this.
 - name: Include Windows Agent version tasks
-  when: ansible_facts.os_family == "Windows"
   ansible.builtin.include_tasks: parse-version-windows.yml
-- name: Include macOS Agent version tasks
-  when: ansible_facts.os_family == "Darwin"
-  ansible.builtin.include_tasks: parse-version-macos.yml
-- name: Set skip install flag if version already installed (Linux)
-  when: ansible_facts.system is defined and ansible_facts.system == "Linux"
-  ansible.builtin.set_fact:
-    datadog_skip_install: '{{ datadog_version_check_linux.stdout | trim == datadog_agent_os2version[ansible_facts.os_family]
-      }}'
-- name: Set skip install flag if version already installed (Windows)
   when: ansible_facts.os_family == "Windows"
-  ansible.builtin.set_fact:
-    datadog_skip_install: '{{ datadog_version_check_win.stdout | trim == datadog_agent_os2version[ansible_facts.os_family]
-      }}'
-- name: Set skip install flag if version already installed (macOS)
+
+- name: Include macOS Agent version tasks
+  ansible.builtin.include_tasks: parse-version-macos.yml
   when: ansible_facts.os_family == "Darwin"
+
+- name: Set skip install flag if version already installed (Linux)
   ansible.builtin.set_fact:
-    datadog_skip_install: '{{ datadog_version_check_macos.stdout | trim == datadog_agent_os2version[ansible_facts.os_family]
-      }}'
+    datadog_skip_install: "{{ datadog_version_check_linux.stdout | trim == datadog_agent_os2version[ansible_facts.os_family] }}"
+  when: ansible_facts.system is defined and ansible_facts.system == "Linux"
+
+- name: Set skip install flag if version already installed (Windows)
+  ansible.builtin.set_fact:
+    datadog_skip_install: "{{ datadog_version_check_win.stdout | trim == datadog_agent_os2version[ansible_facts.os_family] }}"
+  when: ansible_facts.os_family == "Windows"
+
+- name: Set skip install flag if version already installed (macOS)
+  ansible.builtin.set_fact:
+    datadog_skip_install: "{{ datadog_version_check_macos.stdout | trim == datadog_agent_os2version[ansible_facts.os_family] }}"
+  when: ansible_facts.os_family == "Darwin"

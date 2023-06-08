@@ -1,4 +1,4 @@
+---
 - name: Set agent download filename to a specific version
   ansible.builtin.set_fact:
-    dd_download_url: '{{ datadog_macos_versioned_url }}-{{ datadog_agent_macos_version
-      }}-1.dmg'
+    dd_download_url: "{{ datadog_macos_versioned_url }}-{{ datadog_agent_macos_version }}-1.dmg"
