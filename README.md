@@ -14,6 +14,11 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
   ```shell
   ansible-galaxy collection install ansible.windows
   ```
+- When using Ansible on openSUSE, requires the `community.general` collection to be installed:
+  
+  ```shell
+  ansible-galaxy collection install community.general
+  ```
 
 ### Installation
 
