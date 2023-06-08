@@ -13,7 +13,7 @@ jobs:
           path: roles/agent
       - name: Cleanup checked out repository
         run: |
-          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \;
+          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \;
           touch roles/agent/.gitkeep
       - name: Edit install info file
         run: |
@@ -26,5 +26,5 @@ jobs:
           inv role.format-fqcn
       - name: Check ansible-datadog formating
         run: |
-          ansible-lint -t fqcn -x yaml
+          ansible-lint
       - uses: stefanzweifel/git-auto-commit-action@v4
