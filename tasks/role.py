@@ -58,7 +58,6 @@ def format_fqcn(ctx):
     for file in fqcn_format_hash.keys():
         fd = open(file, "r+")
         content = fd.read()
-        yaml_content = yaml.load(content)
         for replacement, action in fqcn_format_hash[file]:
             content = re.sub(f"([ \t]+){action}:", r"\1" + replacement + ":", content)
 
