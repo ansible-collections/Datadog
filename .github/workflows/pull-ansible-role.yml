@@ -22,7 +22,7 @@ jobs:
       - name: Format ansible-datadog role
         run: |
           pip install -r requirements.txt
-          ansible-galaxy collection install ansible.windows
+          ansible-galaxy collection install ansible.windows community.general
           inv role.format-fqcn
       - name: Check ansible-datadog formating
         run: |
