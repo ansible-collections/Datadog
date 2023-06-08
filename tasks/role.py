@@ -59,7 +59,9 @@ def format_fqcn(ctx):
         fd = open(file, "r+")
         content = fd.read()
         for replacement, action in fqcn_format_hash[file]:
-            content = re.sub(f"^([ \t]+){action}:", r"\1" + replacement + ":", content, flags=re.M)
+            content = re.sub(
+                f"^([ \t]+){action}:", r"\1" + replacement + ":", content, flags=re.M
+            )
             change_count += 1
 
         fd.seek(0)
