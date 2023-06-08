@@ -1,92 +1,99 @@
+---
 - name: Create Datadog agent config directory
-  when: datadog_manage_config
   ansible.builtin.file:
-    dest: '{{ _dd_config_dir }}'
+    dest: "{{ _dd_config_dir }}"
     state: directory
-    mode: 493
-    owner: '{{ _dd_user }}'
-    group: '{{ _dd_group }}'
-- name: Create main Datadog agent configuration file
+    mode: "0755"
+    owner: "{{ _dd_user }}"
+    group: "{{ _dd_group }}"
   when: datadog_manage_config
-  notify: '{{ _dd_notify_agent }}'
+
+- name: Create main Datadog agent configuration file
   ansible.builtin.template:
     src: datadog.yaml.j2
-    dest: '{{ _dd_config_dir }}/datadog.yaml'
-    mode: 416
-    owner: '{{ _dd_user }}'
-    group: '{{ _dd_group }}'
+    dest: "{{ _dd_config_dir }}/datadog.yaml"
+    mode: "0640"
+    owner: "{{ _dd_user }}"
+    group: "{{ _dd_group }}"
+  when: datadog_manage_config
+  notify: "{{ _dd_notify_agent }}"
+
 - name: Register all checks directories present in datadog
+  ansible.builtin.find:
+    paths: "{{ _dd_config_dir }}/conf.d/"
+    patterns:
+      - "*.d"
+    file_type: directory
   register: datadog_conf_directories
   when: datadog_manage_config and (datadog_disable_untracked_checks or datadog_disable_default_checks)
-  ansible.builtin.find:
-    paths: '{{ _dd_config_dir }}/conf.d/'
-    patterns:
-    - '*.d'
-    file_type: directory
+
 - name: Delete checks not present in datadog_tracked_checks
-  loop: '{{ datadog_conf_directories.files | map(attribute=''path'') | list | map(''basename'')
-    | list | map(''regex_replace'', ''^(.*).d$'', ''\1'') | list }}'
-  when: datadog_manage_config and datadog_disable_untracked_checks and item not in
-    datadog_tracked_checks
-  notify: '{{ _dd_notify_agent }}'
   ansible.builtin.file:
-    path: '{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml'
+    path: "{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml"
     state: absent
+  loop: "{{ datadog_conf_directories.files | map(attribute='path') | list | map('basename') | list | map('regex_replace', '^(.*).d$', '\\1') | list }}"
+  when: datadog_manage_config and datadog_disable_untracked_checks and item not in datadog_tracked_checks
+  notify: "{{ _dd_notify_agent }}"
+
 - name: Delete all default checks
-  loop: '{{ datadog_conf_directories.files | map(attribute=''path'') | list | map(''basename'')
-    | list | map(''regex_replace'', ''^(.*).d$'', ''\1'') | list }}'
+  ansible.builtin.file:
+    path: "{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml.default"
+    state: absent
+  loop: "{{ datadog_conf_directories.files | map(attribute='path') | list | map('basename') | list | map('regex_replace', '^(.*).d$', '\\1') | list }}"
   when: datadog_manage_config and datadog_disable_default_checks and item not in datadog_tracked_checks
-  notify: '{{ _dd_notify_agent }}'
-  ansible.builtin.file:
-    path: '{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml.default'
-    state: absent
+  notify: "{{ _dd_notify_agent }}"
+
 - name: Delete all example checks
-  loop: '{{ datadog_conf_directories.files | map(attribute=''path'') | list | map(''basename'')
-    | list | map(''regex_replace'', ''^(.*).d$'', ''\1'') | list }}'
-  when: datadog_manage_config and datadog_disable_example_checks and item not in datadog_tracked_checks
-  notify: '{{ _dd_notify_agent }}'
   ansible.builtin.file:
-    path: '{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml.example'
+    path: "{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml.example"
     state: absent
+  loop: "{{ datadog_conf_directories.files | map(attribute='path') | list | map('basename') | list | map('regex_replace', '^(.*).d$', '\\1') | list }}"
+  when: datadog_manage_config and datadog_disable_example_checks and item not in datadog_tracked_checks
+  notify: "{{ _dd_notify_agent }}"
+
 - name: Ensure configuration directories are present for each Datadog check
-  with_items: '{{ datadog_checks|list }}'
-  when: datadog_manage_config
   ansible.builtin.file:
-    dest: '{{ _dd_config_dir }}/conf.d/{{ item }}.d'
+    dest: "{{ _dd_config_dir }}/conf.d/{{ item }}.d"
     state: directory
-    owner: '{{ _dd_user }}'
-    group: '{{ _dd_group }}'
-    mode: 493
-- name: Create a configuration file for each Datadog check
-  with_items: '{{ datadog_checks|list }}'
+    owner: "{{ _dd_user }}"
+    group: "{{ _dd_group }}"
+    mode: "0755"
+  with_items: "{{ datadog_checks | list }}"
   when: datadog_manage_config
-  notify: '{{ _dd_notify_agent }}'
+
+- name: Create a configuration file for each Datadog check
   ansible.builtin.template:
     src: checks.yaml.j2
-    dest: '{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml'
-    mode: 416
-    owner: '{{ _dd_user }}'
-    group: '{{ _dd_group }}'
-- name: Remove old configuration file for each Datadog check
-  with_items: '{{ datadog_checks|list }}'
+    dest: "{{ _dd_config_dir }}/conf.d/{{ item }}.d/conf.yaml"
+    mode: "0640"
+    owner: "{{ _dd_user }}"
+    group: "{{ _dd_group }}"
+  with_items: "{{ datadog_checks | list }}"
   when: datadog_manage_config
-  notify: '{{ _dd_notify_agent }}'
+  notify: "{{ _dd_notify_agent }}"
+
+- name: Remove old configuration file for each Datadog check
   ansible.builtin.file:
-    dest: '{{ _dd_config_dir }}/conf.d/{{ item }}.yaml'
+    dest: "{{ _dd_config_dir }}/conf.d/{{ item }}.yaml"
     state: absent
+  with_items: "{{ datadog_checks | list }}"
+  when: datadog_manage_config
+  notify: "{{ _dd_notify_agent }}"
+
 - name: Create custom check file for each custom check
-  with_items: '{{ datadog_custom_checks|list }}'
-  notify: '{{ _dd_notify_agent }}'
   ansible.builtin.copy:
-    src: '{{ datadog_custom_checks[item] }}'
-    dest: '{{ _dd_config_dir }}/checks.d/{{ item }}.py'
-    mode: 493
-    owner: '{{ _dd_user }}'
-    group: '{{ _dd_group }}'
+    src: "{{ datadog_custom_checks[item] }}"
+    dest: "{{ _dd_config_dir }}/checks.d/{{ item }}.py"
+    mode: "0755"
+    owner: "{{ _dd_user }}"
+    group: "{{ _dd_group }}"
+  with_items: "{{ datadog_custom_checks | list }}"
+  notify: "{{ _dd_notify_agent }}"
+
 - name: Create installation information file
   ansible.builtin.template:
     src: install_info.j2
-    dest: '{{ _dd_config_dir }}/install_info'
-    owner: '{{ _dd_user }}'
-    group: '{{ _dd_group }}'
-    mode: 420
+    dest: "{{ _dd_config_dir }}/install_info"
+    owner: "{{ _dd_user }}"
+    group: "{{ _dd_group }}"
+    mode: "0644"

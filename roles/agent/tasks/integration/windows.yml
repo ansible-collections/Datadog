@@ -1,23 +1,12 @@
+---
 - name: Set Agent binary path
   ansible.builtin.set_fact:
-    datadog_agent_binary_path: '{{ datadog_agent_binary_path_windows }}'
+    datadog_agent_binary_path: "{{ datadog_agent_binary_path_windows }}"
+
 - name: Set Agent user for integration commmand
   ansible.builtin.set_fact:
-    integration_command_user: '{{ integration_command_user_windows }}'
-- name: Removing integrations
-  become: true
-  become_user: '{{ integration_command_user }}'
-  loop: '{{ datadog_integration|dict2items }}'
-  when: item.value.action == "remove"
-  ansible.windows.win_command: '"{{ datadog_agent_binary_path }}" integration remove
-    {{ item.key }}'
-- name: Installing pinned version of integrations
-  become: true
-  vars:
-    third_party: '{% if ''third_party'' in item.value and item.value.third_party |
-      bool %}--third-party{% endif %}'
-  become_user: '{{ integration_command_user }}'
-  loop: '{{ datadog_integration|dict2items }}'
-  when: item.value.action == "install"
-  ansible.windows.win_command: '"{{ datadog_agent_binary_path }}" integration install
-    {{ third_party }} {{ item.key }}=={{ item.value.version }}'
+    integration_command_user: "{{ integration_command_user_windows }}"
+
+- name: Include integration installation and removal tasks
+  ansible.builtin.include_tasks: integration/_windows-integration-update.yml
+  loop: "{{ datadog_integration | dict2items }}"

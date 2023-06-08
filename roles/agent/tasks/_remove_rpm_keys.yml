@@ -1,5 +1,6 @@
-- name: Ensure GPG key {{ item }} is not present in the RPM db
-  when: not ansible_check_mode
+---
+- name: Ensure GPG key is not present in the RPM db, key={{ item }}
   ansible.builtin.rpm_key:
     state: absent
-    key: '{{ item }}'
+    key: "{{ item }}"
+  when: not ansible_check_mode
