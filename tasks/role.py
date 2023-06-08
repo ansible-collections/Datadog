@@ -49,6 +49,7 @@ def generate_fqcn_format_map(ctx):
 
     return fqcn_format_hash
 
+
 @task
 def format_fqcn(ctx):
     """
@@ -56,11 +57,11 @@ def format_fqcn(ctx):
     """
     fqcn_format_hash = generate_fqcn_format_map(ctx)
     for file in fqcn_format_hash.keys():
-        fd = open(file , "r+")
+        fd = open(file, "r+")
         content = fd.read()
-        yaml_content = yaml.load(content, Loader=SafeLineLoader)
+        yaml_content = yaml.load(content)
         for replacement, action in fqcn_format_hash[file]:
-            content = content.replace(action+":", replacement+":")
+            content = content.replace(action + ":", replacement + ":")
 
         fd.seek(0)
         fd.write(content)
