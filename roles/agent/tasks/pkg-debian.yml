@@ -79,7 +79,7 @@
 
 - name: Initialize custom repo file deletion flag to False
   ansible.builtin.set_fact:
-    datadog_remove_custom_repo_ansible.builtin.file: "False"
+    datadog_remove_custom_repo_file: "False"
 
 - name: Check if custom repository file exists
   ansible.builtin.stat:
@@ -94,7 +94,7 @@
 
 - name: Flag custom repository file for deletion if different from current repository config
   ansible.builtin.set_fact:
-    datadog_remove_custom_repo_ansible.builtin.file: "{{ datadog_repo_file_contents != datadog_apt_repo }}"
+    datadog_remove_custom_repo_file: "{{ datadog_repo_file_contents != datadog_apt_repo }}"
   vars:
     datadog_repo_file_contents: "{{ datadog_custom_repo_file_contents['content'] | b64decode | trim }}"
   when: datadog_custom_repo_file.stat.exists

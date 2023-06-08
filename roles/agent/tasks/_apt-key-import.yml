@@ -45,7 +45,7 @@
   when: key_fingerprint == datadog_apt_key_current_name
 
 - name: Create temporary directory for key manipulation
-  ansible.builtin.tempansible.builtin.file:
+  ansible.builtin.tempfile:
     state: directory
     suffix: keys
   register: tempdir

@@ -26,7 +26,7 @@
   ansible.builtin.include_tasks: _agent-linux-macos-shared.yml
   vars:
     _dd_config_dir: /etc/datadog-agent
-    _dd_ansible.builtin.user: "{{ datadog_user }}"
+    _dd_user: "{{ datadog_user }}"
     _dd_group: "{{ datadog_group }}"
     _dd_notify_agent: restart datadog-agent
 
