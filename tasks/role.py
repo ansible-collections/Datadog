@@ -53,14 +53,17 @@ def format_fqcn(ctx):
     """
     Format all fqcn ansible-lint errors.
     """
+    change_count = 0
     fqcn_format_hash = generate_fqcn_format_map(ctx)
     for file in fqcn_format_hash.keys():
         fd = open(file, "r+")
         content = fd.read()
         for replacement, action in fqcn_format_hash[file]:
             content = re.sub(f"^([ \t]+){action}:", r"\1" + replacement + ":", content)
+            change_count+=1
 
         fd.seek(0)
         fd.write(content)
         fd.truncate()
         fd.close()
+    print(f"FQCN format ended successfully with a total of {change_count} changes made.")
