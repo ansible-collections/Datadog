@@ -1,5 +1,4 @@
 from __future__ import absolute_import, division, print_function
-import yaml
 import json
 from invoke import task
 import re
