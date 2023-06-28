@@ -13,10 +13,18 @@ jobs:
           path: roles/agent
       - name: Cleanup checked out repository
         run: |
-          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -name '.gitkeep' -type f -exec rm -r {} \;
+          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \;
           touch roles/agent/.gitkeep
       - name: Edit install info file
         run: |
           collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
           sed -i "s/datadog_role/datadog_collection_${collection_version}_agent_role/g" roles/agent/templates/install_info.j2
+      - name: Format ansible-datadog role
+        run: |
+          pip install -r requirements.txt
+          ansible-galaxy collection install ansible.windows community.general
+          inv role.format-fqcn
+      - name: Check ansible-datadog formating
+        run: |
+          ansible-lint -v --profile=production --exclude=.gitlab/ --exclude=.git/ --exclude=.github/
       - uses: stefanzweifel/git-auto-commit-action@v4

@@ -14,6 +14,11 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
   ```shell
   ansible-galaxy collection install ansible.windows
   ```
+- When using Ansible on openSUSE, requires the `community.general` collection to be installed:
+  
+  ```shell
+  ansible-galaxy collection install community.general
+  ```
 
 ### Installation
 
@@ -22,6 +27,8 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
 ```shell
 ansible-galaxy collection install datadog.dd
 ```
+
+Note for users installing the collection through the Ansible Automation Hub: OpenSUSE/SLES functionality depends on a community collection community.general. Red Hat Support does not provide support for any issues related to community content. Thus, all support issues for OpenSUSE/SLES should be directed to Datadog Support.
 
 ### Collection role list
   - ``datadog.dd.agent`` : Installation and configuration of the Datadog agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
