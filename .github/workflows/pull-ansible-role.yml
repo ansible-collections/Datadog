@@ -26,5 +26,5 @@ jobs:
           inv role.format-fqcn
       - name: Check ansible-datadog formating
         run: |
-          ansible-lint -v --profile=production --exclude=.gitlab/ --exclude=.git/
+          ansible-lint -v --profile=production --exclude=.gitlab/ --exclude=.git/ --exclude=.github/
       - uses: stefanzweifel/git-auto-commit-action@v4
