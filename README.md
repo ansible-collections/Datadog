@@ -28,6 +28,18 @@ NOTE: the collection hasn't been released as of now, the below instructions will
 ansible-galaxy collection install datadog.dd
 ```
 
+To deploy the Datadog Agent on hosts, add the Datadog role and your API key to your playbook:
+
+```yaml
+- hosts: servers
+  tasks:
+    - name: Import the Datadog Agent role from the Datadog collection
+      import_role:
+        name: datadog.dd.agent
+  vars:
+    datadog_api_key: "<YOUR_DD_API_KEY>"
+```
+
 Note for users installing the collection through the Ansible Automation Hub: OpenSUSE/SLES functionality depends on a community collection community.general. Red Hat Support does not provide support for any issues related to community content. Thus, all support issues for OpenSUSE/SLES should be directed to Datadog Support.
 
 ### Collection role list
