@@ -7,14 +7,14 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
 
 ### Requirements
 
-- Requires Ansible v2.6+.
+- Requires Ansible v2.10+.
 - Supports most Debian and RHEL-based Linux distributions, macOS, and Windows.
-- When using Ansible 2.10+ on Windows, requires the `ansible.windows` collection to be installed:
+- When using to manage Windows hosts, requires the `ansible.windows` collection to be installed:
 
   ```shell
   ansible-galaxy collection install ansible.windows
   ```
-- When using Ansible on openSUSE, requires the `community.general` collection to be installed:
+- When using to manage openSUSE/SLES hosts, requires the `community.general` collection to be installed:
   
   ```shell
   ansible-galaxy collection install community.general
@@ -22,7 +22,7 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
 
 ### Installation
 
-(Collection not available at the moment)
+NOTE: the collection hasn't been released as of now, the below instructions will apply as soon as it gets released.
 
 ```shell
 ansible-galaxy collection install datadog.dd
@@ -32,5 +32,3 @@ Note for users installing the collection through the Ansible Automation Hub: Ope
 
 ### Collection role list
   - ``datadog.dd.agent`` : Installation and configuration of the Datadog agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
-
-
