@@ -22,8 +22,6 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
 
 ### Installation
 
-NOTE: the collection hasn't been released as of now, the below instructions will apply as soon as it gets released.
-
 ```shell
 ansible-galaxy collection install datadog.dd
 ```
