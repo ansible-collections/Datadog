@@ -1,14 +1,13 @@
-# Datadog Collection
+# Datadog Ansible Collection
 
-This repository contains the ``datadog.dd`` Ansible Collection. This collection only contains the Ansible Datadog Role at the moment.
-This role can be access through ``datadog.dd.agent`` allowing to install and configure the Datadog Agent and integrations. By default the agent v7 is installed.
+The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansible-related Datadog content. At the moment, it only contains the [Ansible Datadog Role](https://github.com/DataDog/ansible-datadog/). This role can be accessed as `datadog.dd.agent`, allowing to install and configure the Datadog Agent and integrations. Agent version 7 is installed by default.
 
 ## Setup
 
 ### Requirements
 
 - Requires Ansible v2.10+.
-- Supports most Debian and RHEL-based Linux distributions, macOS, and Windows.
+- Supports most Debian, RHEL-based and SUSE-based Linux distributions, macOS, and Windows.
 - When using to manage Windows hosts, requires the `ansible.windows` collection to be installed:
 
   ```shell
@@ -22,9 +21,15 @@ This role can be access through ``datadog.dd.agent`` allowing to install and con
 
 ### Installation
 
+To install from Ansible Galaxy, run:
+
 ```shell
 ansible-galaxy collection install datadog.dd
 ```
+
+The Datadog Ansible collection is also available through the [Red Hat Automation Hub](https://console.redhat.com/ansible/automation-hub/repo/published/datadog/dd/), where it is officially certified by Red Hat.
+
+### Usage
 
 To deploy the Datadog Agent on hosts, add the Datadog role and your API key to your playbook:
 
@@ -38,7 +43,8 @@ To deploy the Datadog Agent on hosts, add the Datadog role and your API key to y
     datadog_api_key: "<YOUR_DD_API_KEY>"
 ```
 
-Note for users installing the collection through the Ansible Automation Hub: OpenSUSE/SLES functionality depends on a community collection community.general. Red Hat Support does not provide support for any issues related to community content. Thus, all support issues for OpenSUSE/SLES should be directed to Datadog Support.
+Note for users installing the collection through the Ansible Automation Hub: OpenSUSE/SLES functionality depends on a community collection `community.general`. Red Hat Support does not provide support for any issues related to community content. Thus, all support issues for OpenSUSE/SLES should be directed to Datadog Support.
 
 ### Collection role list
-  - ``datadog.dd.agent`` : Installation and configuration of the Datadog agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
+
+- `datadog.dd.agent` : Installation and configuration of the Datadog Agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
