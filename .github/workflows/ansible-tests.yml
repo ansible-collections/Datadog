@@ -8,9 +8,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [debian, rocky8, suse]
+        os: [debian, rocky8]
         ansible_version: ["2_9", "4_10"]
-        agent_version: ["5","6","7"]
+        agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
@@ -29,9 +29,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [amazonlinux2, centos]
+        os: [centos]
         ansible_version: ["2_9", "4_10"]
-        agent_version: ["5","6","7"]
+        agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
@@ -45,4 +45,49 @@ jobs:
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
 
+  ansible-tests-suse:
+      runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [suse]
+        ansible_version: ["2_9", "4_10"]
+        agent_version: ["5","6","7"]
+    container:
+      image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
+    steps:
+      - name: Install tar  ##TODO Remove this step after adding tar in the suse image
+        run: zypper install -y tar
+      - uses: actions/checkout@v3
+      - name: Build the Ansible collection
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      - name: Run ansible playbook with the collection
+        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
+      - name: Check datadog-agent version exit 0
+        run: datadog-agent version
+
+  ansible-tests-suse:
+      runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [amazonlinux2]
+        ansible_version: ["2_9", "4_10"]
+        agent_version: ["5","6","7"]
+    container:
+      image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
+    steps:
+      - name: Install tar  ##TODO Remove this step after adding tar in the suse image
+        run: zypper install -y tar
+      - uses: actions/checkout@v3
+      - name: Build the Ansible collection
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      - name: Run ansible playbook with the collection
+        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
+      - name: Check datadog-agent version exit 0
+        run: datadog-agent version
 
