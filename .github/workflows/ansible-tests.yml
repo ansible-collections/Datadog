@@ -24,13 +24,13 @@ jobs:
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
   
-  ansible-tests-python2:
+  ansible-tests-centos:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
         os: [centos]
-        ansible_version: ["2_10", "4_10"]
+        ansible_version: ["3_4", "4_10"]
         agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
@@ -53,7 +53,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [suse]
-        ansible_version: ["2_10", "4_10"]
+        ansible_version: ["3_4", "4_10"]
         agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
@@ -82,7 +82,7 @@ jobs:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
       - name: Install tar  ##TODO Remove this step after adding tar in the suse image
-        run: zypper install -y tar
+        run: yum install -y tar
       - uses: actions/checkout@v1
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
