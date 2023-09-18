@@ -68,7 +68,7 @@ jobs:
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
 
-  ansible-tests-suse:
+  ansible-tests-al2:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
