@@ -1,8 +1,9 @@
 ---
 
-- hosts: all
-  roles:
-    - { role: '/root/project/'}
+- hosts:
+  tasks:
+    - import_role:
+        name: datadog.dd.agent
   vars:
     datadog_api_key: "11111111111111111111111111111111"
     datadog_agent_major_version: 5
