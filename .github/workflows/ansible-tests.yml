@@ -14,7 +14,7 @@ jobs:
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
@@ -35,7 +35,9 @@ jobs:
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
+      - name: Try install newer ansible version
+        run: pip install ansible=2.1.
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
@@ -58,7 +60,7 @@ jobs:
     steps:
       - name: Install tar  ##TODO Remove this step after adding tar in the suse image
         run: zypper install -y tar
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
@@ -81,7 +83,7 @@ jobs:
     steps:
       - name: Install tar  ##TODO Remove this step after adding tar in the suse image
         run: zypper install -y tar
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
