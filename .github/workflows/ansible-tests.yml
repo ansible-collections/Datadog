@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [debian, rocky8]
-        ansible_version: ["2_9", "4_10"]
+        ansible_version: ["2_10", "4_10"]
         agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [centos]
-        ansible_version: ["2_9", "4_10"]
+        ansible_version: ["2_10", "4_10"]
         agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
@@ -51,7 +51,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [suse]
-        ansible_version: ["2_9", "4_10"]
+        ansible_version: ["2_10", "4_10"]
         agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
@@ -74,7 +74,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [amazonlinux2]
-        ansible_version: ["2_9", "4_10"]
+        ansible_version: ["2_10", "4_10"]
         agent_version: ["6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
