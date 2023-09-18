@@ -99,3 +99,15 @@ jobs:
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
 
+  ansible-tests-windows:
+    runs-on: windows2022
+    steps:
+      - name: Set up WSL
+        uses: Ubuntu/WSL/.github/actions/wsl-install@main
+      - name: Run your tests
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@main
+        with:
+            distro: ${{ env.distro }}
+            working-dir: "~/myrepo"
+            exec: python3 -m pip install ansible==2.10 && ansible --version
+
