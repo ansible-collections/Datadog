@@ -1,7 +1,6 @@
 name: ansible-tests
 on:
   push:
-  pull_request:
 
 jobs:
   ansible-test:
@@ -10,10 +9,14 @@ jobs:
       matrix:
         os: [debian]
         ansible_version: ["2_8", "2_9", "2_10", "3_4", "4_10"]
+        agent_version: ["5","6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
-      - name: Check for ansible-playbook
-        run: echo `ansible-playbook --version`
-
+      - uses: actions/checkout@v3
+      - name: Build the Ansible collection
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      
 
