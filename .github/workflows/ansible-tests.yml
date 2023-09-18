@@ -6,9 +6,10 @@ jobs:
   ansible-test:
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
         os: [debian]
-        ansible_version: ["2_8", "2_9", "2_10", "3_4", "4_10"]
+        ansible_version: ["2_9", "2_10", "3_4", "4_10"]
         agent_version: ["5","6","7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
