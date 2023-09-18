@@ -1,0 +1,15 @@
+name: ansible-tests
+on:
+  push:
+  pull_request:
+
+jobs:
+  ansible-test:
+    runs-on: ubuntu-22.04
+    container:
+      image: datadog/docker-library:ansible_debian_2_10
+    steps:
+      - name: Check for ansible-playbook
+        run: echo `ansible-playbook --version`
+
+
