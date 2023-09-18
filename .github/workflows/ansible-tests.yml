@@ -100,7 +100,7 @@ jobs:
         run: datadog-agent version
 
   ansible-tests-windows:
-    runs-on: windows2022
+    runs-on: windows-2022
     steps:
       - name: Set up WSL
         uses: Ubuntu/WSL/.github/actions/wsl-install@main
