@@ -1,6 +1,6 @@
 ---
 
-- hosts:
+- hosts: all
   tasks:
     - import_role:
         name: datadog.dd.agent
