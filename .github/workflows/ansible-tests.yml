@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Print python version
-        run: python --version
+        run: python3 --version
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Print python version
-        run: python --version
+        run: python3 --version
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
@@ -63,7 +63,7 @@ jobs:
       - name: Install tar  ##TODO Remove this step after adding tar in the suse image
         run: zypper install -y tar
       - name: Print python version
-        run: python --version
+        run: python3 --version
       - uses: actions/checkout@v1
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
@@ -89,7 +89,7 @@ jobs:
         run: yum install -y tar
       - uses: actions/checkout@v1
       - name: Print python version
-        run: python --version
+        run: python3 --version
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
