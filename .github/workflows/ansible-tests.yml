@@ -6,8 +6,12 @@ on:
 jobs:
   ansible-test:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        os: [debian]
+        ansible_version: ["2_8", "2_9", "2_10", "3_4", "4_10"]
     container:
-      image: datadog/docker-library:ansible_debian_2_10
+      image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
       - name: Check for ansible-playbook
         run: echo `ansible-playbook --version`
