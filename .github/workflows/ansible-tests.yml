@@ -105,7 +105,12 @@ jobs:
       - uses: Vampire/setup-wsl@v2
         with:
           distribution: Ubuntu-22.04
-      - name: Show WSL python version
+      - name: Install Ansible
         shell: wsl-bash {0}
-        run: python3 --version
+        run: python3 -m pip install ansible==2.10.*
+      - name: Run ansible playbook
+        shell: wsl-bash {0}
+        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_7.yaml"
+
+      
 
