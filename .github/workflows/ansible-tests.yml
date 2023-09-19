@@ -123,7 +123,7 @@ jobs:
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook
         shell: wsl-bash {0}
-        run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e 'ansible_password=Toto12345789!' -vvv
+        run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e 'ansible_password=Tto12345789!' -vvv
 
       
 
