@@ -95,7 +95,10 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: Run AnsibleRemotingConfig
-        run: iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/AlbanAndrieu/ansible-windows/master/files/ConfigureRemotingForAnsible.ps1'))
+        run: |
+          iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/AlbanAndrieu/ansible-windows/master/files/ConfigureRemotingForAnsible.ps1'))
+          winrm set winrm/config/service/auth '@{Basic="true"}'
+          winrm set winrm/config/service '@{AllowUnencrypted="true"}'
       - name: Create Windows user
         run: |
           $password = ConvertTo-SecureString "Toto12345789!" -AsPlainText -Force
