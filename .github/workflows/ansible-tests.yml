@@ -114,7 +114,7 @@ jobs:
         run: sudo apt update -y && sudo apt install -y python3-pip
       - name: Install Ansible
         shell: wsl-bash {0}
-        run: python3 -m pip install ansible==3.4.* pywinrm
+        run: python3 -m pip install ansible pywinrm
       - name: Build the Ansible collection
         shell: wsl-bash {0}
         run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows
