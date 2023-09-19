@@ -96,9 +96,9 @@ jobs:
     steps:
       - name: Run AnsibleRemotingConfig
         run: |
-          iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/AlbanAndrieu/ansible-windows/master/files/ConfigureRemotingForAnsible.ps1'))
-          winrm set winrm/config/service/auth '@{Basic="true"}'
-          winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+          Enable-PSRemoting
+          Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
+          Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
       - name: Create Windows user
         run: |
           $password = ConvertTo-SecureString "Toto12345789!" -AsPlainText -Force
@@ -114,7 +114,7 @@ jobs:
         run: sudo apt update -y && sudo apt install -y python3-pip
       - name: Install Ansible
         shell: wsl-bash {0}
-        run: python3 -m pip install ansible==3.0.* pywinrm
+        run: python3 -m pip install ansible==3.4.* pywinrm
       - name: Build the Ansible collection
         shell: wsl-bash {0}
         run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows
