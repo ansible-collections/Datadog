@@ -102,6 +102,8 @@ jobs:
   ansible-tests-windows:
     runs-on: windows-2022
     steps:
+      - name: Set WSL version to 1
+        run: wsl --set-default-version 1
       - name: Set up WSL
         uses: Ubuntu/WSL/.github/actions/wsl-install@main
         with:
