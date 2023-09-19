@@ -110,10 +110,10 @@ jobs:
         run: sudo apt update -y && sudo apt install -y python3-pip
       - name: Install Ansible
         shell: wsl-bash {0}
-        run: python3 -m pip install ansible==2.10.*
+        run: python3 -m pip install ansible==2.10.* pywinrm
       - name: Build the Ansible collection
         shell: wsl-bash {0}
-        run: ansible-galaxy collection build
+        run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows
       - name: Install the Ansible collection
         shell: wsl-bash {0}
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
