@@ -119,7 +119,7 @@ jobs:
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook
         shell: wsl-bash {0}
-        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_7.yaml"
+        run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml"
 
       
 
