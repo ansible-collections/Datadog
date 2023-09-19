@@ -113,6 +113,12 @@ jobs:
       - name: Install Ansible
         shell: wsl-bash {0}
         run: python3 -m pip install ansible==2.10.*
+      - name: Build the Ansible collection
+        shell: wsl-bash {0}
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        shell: wsl-bash {0}
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook
         shell: wsl-bash {0}
         run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_7.yaml"
