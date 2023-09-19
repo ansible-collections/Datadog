@@ -60,8 +60,6 @@ jobs:
     steps:
       - name: Install tar  ##TODO Remove this step after adding tar in the suse image
         run: zypper install -y tar
-      - name: Print python version
-        run: python3 --version
       - uses: actions/checkout@v1
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
