@@ -105,6 +105,9 @@ jobs:
       - uses: Vampire/setup-wsl@v2
         with:
           distribution: Ubuntu-22.04
+      - name: Install pip
+        shell: wsl-bash {0}
+        run: sudo apt update -y && sudo apt install -y python3-pip
       - name: Install Ansible
         shell: wsl-bash {0}
         run: python3 -m pip install ansible==2.10.*
