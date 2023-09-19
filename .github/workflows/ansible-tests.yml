@@ -102,7 +102,10 @@ jobs:
   ansible-tests-windows:
     runs-on: windows-2022
     steps:
-      - uses: Vampire/setup-wsl@v1
+      - uses: Vampire/setup-wsl@v2
         with:
           distribution: Ubuntu-22.04
+      - name: Show WSL python version
+        shell: wsl-bash {0}
+        run: python3 --version
 
