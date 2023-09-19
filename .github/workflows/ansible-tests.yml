@@ -102,6 +102,8 @@ jobs:
   ansible-tests-windows:
     runs-on: windows-2022
     steps:
+      - uses: actions/checkout@v1
+      - run: ls && pwd
       - uses: Vampire/setup-wsl@v2
         with:
           distribution: Ubuntu-22.04
