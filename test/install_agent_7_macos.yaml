@@ -1,8 +1,9 @@
 ---
 
 - hosts: all
-  roles:
-    - { role: '/Users/distiller/project/' }
+  tasks:
+    - import_role:
+        name: datadog.dd.agent
   vars:
     datadog_api_key: "11111111111111111111111111111111"
     datadog_enabled: false
