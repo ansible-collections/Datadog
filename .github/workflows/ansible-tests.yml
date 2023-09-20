@@ -66,7 +66,7 @@ jobs:
       - name: Generate random password and set it in env vars
         shell: wsl-bash {0}
         run: |
-          PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1)
+          export PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1)
           echo $PASSWORD > .passwd
       - name: Update runneradmin password
         run: |
