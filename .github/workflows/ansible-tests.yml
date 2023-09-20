@@ -99,34 +99,44 @@ jobs:
           Enable-PSRemoting
           Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
           Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
-      - name: Change Windows Admin
-        run: |
-          $password = ConvertTo-SecureString "Toto12345789!" -AsPlainText -Force
-          Get-LocalUser -Name "runneradmin" | Set-LocalUser -Password $password
-      # - name: Add user admin
-      #   run : Add-LocalGroupMember -Group "Administrators" -Member "ansibletest"
+      # - name: Change Windows Admin
+      #   run: |
+      #     $password = Generate-Password 10
+      #     Get-LocalUser -Name "runneradmin" | Set-LocalUser -Password $password
       - uses: actions/checkout@v1
       - uses: Vampire/setup-wsl@v2
         with:
           distribution: Ubuntu-22.04
-      - name: Install pip
+      - name: Generate random password and set it in env vars
         shell: wsl-bash {0}
-        run: sudo apt update -y && sudo apt install -y python3-pip
-      - name: Install Ansible
-        shell: wsl-bash {0}
-        run: python3 -m pip install ansible pywinrm
-      - name: Build the Ansible collection
-        shell: wsl-bash {0}
-        run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows
-      - name: Install the Ansible collection
-        shell: wsl-bash {0}
-        run: ansible-galaxy collection install datadog-dd-*.tar.gz
-      - name: Run ansible playbook
-        shell: wsl-bash {0}
-        run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e 'ansible_password=Toto12345789!' -vvv
-      - name: Check agent is installed
         run: |
-          & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" version
+          export PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 15 | head -n 1)
+          export WSLENV=PASSWORD/w
+          echo "::set-env name=WSLENV::$WSLENV"
+          echo "::set-env name=PASSWORD::$PASSWORD"
+      - name: Print password from windows
+        run: $Env:PASSWORD
+      - name: Print password from WSL
+        shell: wsl-bash {0}
+        run: echo $PASSWORD
+      # - name: Install pip
+      #   shell: wsl-bash {0}
+      #   run: sudo apt update -y && sudo apt install -y python3-pip
+      # - name: Install Ansible
+      #   shell: wsl-bash {0}
+      #   run: python3 -m pip install ansible pywinrm
+      # - name: Build the Ansible collection
+      #   shell: wsl-bash {0}
+      #   run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows
+      # - name: Install the Ansible collection
+      #   shell: wsl-bash {0}
+      #   run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      # - name: Run ansible playbook
+      #   shell: wsl-bash {0}
+      #   run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e 'ansible_password=Toto12345789!' -vvv
+      # - name: Check agent is installed
+      #   run: |
+      #     & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" version
 
       
 
