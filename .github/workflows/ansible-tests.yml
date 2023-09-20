@@ -10,7 +10,7 @@ jobs:
       matrix:
         os: [debian, rocky8, suse]
         ansible_version: ["2_10", "4_10"]
-        agent_version: ["6","7"]
+        agent_version: ["6", "7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
@@ -33,7 +33,7 @@ jobs:
       matrix:
         os: [centos, amazonlinux2]
         ansible_version: ["2_10", "4_10"]
-        agent_version: ["6","7"]
+        agent_version: ["6", "7"]
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
@@ -100,7 +100,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        agent_version: ["6","7"]
+        agent_version: ["6", "7"]
         ansible_version: ["2.10", "4.10"]
     steps:
       - uses: actions/checkout@v1
@@ -116,5 +116,3 @@ jobs:
         run: ansible-playbook -i ./test/inventory/inventory_macos.ini "./test/install_agent_${{ matrix.agent_version }}_macos.yaml"
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
-
-
