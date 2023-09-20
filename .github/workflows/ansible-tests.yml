@@ -25,7 +25,7 @@ jobs:
         run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
-  
+
   ansible-tests-python2:
     runs-on: ubuntu-22.04
     strategy:
@@ -46,7 +46,7 @@ jobs:
         run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
-  
+
   ansible-tests-windows:
     runs-on: windows-2022
     strategy:
@@ -71,7 +71,7 @@ jobs:
           echo -n $PASSWORD > .passwd
       - name: Update runneradmin password
         run: |
-          $password = Get-Content .\.passwd -Raw 
+          $password = Get-Content .\.passwd -Raw
           $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
           Get-LocalUser -Name "runneradmin" | Set-LocalUser -Password $securePassword
       - name: Install pip
