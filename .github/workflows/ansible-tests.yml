@@ -3,55 +3,56 @@ on:
   push:
 
 jobs:
-  # ansible-test-python3:
-  #   runs-on: ubuntu-22.04
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: [debian, rocky8, suse]
-  #       ansible_version: ["2_10", "4_10"]
-  #       agent_version: ["6","7"]
-  #   container:
-  #     image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - name: Print python version
-  #       run: python3 --version
-  #     - name: Build the Ansible collection
-  #       run: ansible-galaxy collection build
-  #     - name: Install the Ansible collection
-  #       run: ansible-galaxy collection install datadog-dd-*.tar.gz
-  #     - name: Run ansible playbook with the collection
-  #       run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
-  #     - name: Check datadog-agent version exit 0
-  #       run: datadog-agent version
+  ansible-test-python3:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [debian, rocky8, suse]
+        ansible_version: ["2_10", "4_10"]
+        agent_version: ["6","7"]
+    container:
+      image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Print python version
+        run: python3 --version
+      - name: Build the Ansible collection
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      - name: Run ansible playbook with the collection
+        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
+      - name: Check datadog-agent version exit 0
+        run: datadog-agent version
   
-  # ansible-tests-python2:
-  #   runs-on: ubuntu-22.04
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: [centos, amazonlinux2]
-  #       ansible_version: ["2_10", "4_10"]
-  #       agent_version: ["6","7"]
-  #   container:
-  #     image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - name: Build the Ansible collection
-  #       run: ansible-galaxy collection build
-  #     - name: Install the Ansible collection
-  #       run: ansible-galaxy collection install datadog-dd-*.tar.gz
-  #     - name: Run ansible playbook with the collection
-  #       run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
-  #     - name: Check datadog-agent version exit 0
-  #       run: datadog-agent version
+  ansible-tests-python2:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [centos, amazonlinux2]
+        ansible_version: ["2_10", "4_10"]
+        agent_version: ["6","7"]
+    container:
+      image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the Ansible collection
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      - name: Run ansible playbook with the collection
+        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
+      - name: Check datadog-agent version exit 0
+        run: datadog-agent version
   
   ansible-tests-windows:
     runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
+        agent_version: ["6", "7"]
         ansible_version: ["2.10", "4.10"]
     steps:
       - name: Run AnsibleRemotingConfig
@@ -67,12 +68,10 @@ jobs:
         shell: wsl-bash {0}
         run: |
           export PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 20 | head -n 1)!
-          echo $PASSWORD
           echo -n $PASSWORD > .passwd
       - name: Update runneradmin password
         run: |
           $password = Get-Content .\.passwd -Raw 
-          Write-Host $password
           $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
           Get-LocalUser -Name "runneradmin" | Set-LocalUser -Password $securePassword
       - name: Install pip
@@ -91,32 +90,31 @@ jobs:
         shell: wsl-bash {0}
         run: |
           PASSWORD=$(cat .passwd)
-          echo $PASSWORD
-          ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e "ansible_password=$PASSWORD" -vvv
+          ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e "ansible_password=$PASSWORD" -vvv
       - name: Check agent is installed
         run: |
           & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" version
 
-  # ansible-tests-macos:
-  #   runs-on: macos-13
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       agent_version: ["6","7"]
-  #       ansible_version: ["2.10", "4.10"]
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - name: Install python3
-  #       run: brew install python3
-  #     - name: Install Ansible
-  #       run: pip3 install ansible==${{ matrix.ansible_version}}.*
-  #     - name: Build the Ansible collection
-  #       run: ansible-galaxy collection build
-  #     - name: Install the Ansible collection
-  #       run: ansible-galaxy collection install datadog-dd-*.tar.gz
-  #     - name: Run ansible playbook with the collection
-  #       run: ansible-playbook -i ./test/inventory/inventory_macos.ini "./test/install_agent_${{ matrix.agent_version }}_macos.yaml"
-  #     - name: Check datadog-agent version exit 0
-  #       run: datadog-agent version
+  ansible-tests-macos:
+    runs-on: macos-13
+    strategy:
+      fail-fast: false
+      matrix:
+        agent_version: ["6","7"]
+        ansible_version: ["2.10", "4.10"]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install python3
+        run: brew install python3
+      - name: Install Ansible
+        run: pip3 install ansible==${{ matrix.ansible_version}}.*
+      - name: Build the Ansible collection
+        run: ansible-galaxy collection build
+      - name: Install the Ansible collection
+        run: ansible-galaxy collection install datadog-dd-*.tar.gz
+      - name: Run ansible playbook with the collection
+        run: ansible-playbook -i ./test/inventory/inventory_macos.ini "./test/install_agent_${{ matrix.agent_version }}_macos.yaml"
+      - name: Check datadog-agent version exit 0
+        run: datadog-agent version
 
 
