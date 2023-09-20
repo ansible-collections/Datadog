@@ -99,12 +99,12 @@ jobs:
           Enable-PSRemoting
           Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
           Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
-      - name: Create Windows user
+      - name: Change Windows Admin
         run: |
           $password = ConvertTo-SecureString "Toto12345789!" -AsPlainText -Force
-          New-LocalUser "ansibletest" -Password $password -FullName "ansibletest" -Description "Used to test local ansible"
-      - name: Add user admin
-        run : Add-LocalGroupMember -Group "Administrators" -Member "ansibletest"
+          Get-LocalUser -Name "runneradmin" | Set-LocalUser -Password $password
+      # - name: Add user admin
+      #   run : Add-LocalGroupMember -Group "Administrators" -Member "ansibletest"
       - uses: actions/checkout@v1
       - uses: Vampire/setup-wsl@v2
         with:
@@ -123,7 +123,10 @@ jobs:
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook
         shell: wsl-bash {0}
-        run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e 'ansible_password=Tto12345789!' -vvv
+        run: ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_7.yaml" -e 'ansible_password=Toto12345789!' -vvv
+      - name: Check agent is installed
+        run: |
+          & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" version
 
       
 
