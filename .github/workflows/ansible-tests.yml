@@ -15,8 +15,6 @@ jobs:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
       - uses: actions/checkout@v1
-      - name: Print python version
-        run: python3 --version
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
