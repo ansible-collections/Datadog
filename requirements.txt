@@ -1,3 +1,4 @@
 invoke
 pyyaml
 ansible-lint==6.17
+galaxy-importer==0.4.13
