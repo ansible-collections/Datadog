@@ -10,15 +10,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Build the collection
-      - uses: actions/checkout@v3
         run: |
           ansible-galaxy collection build
-      - name: Test importer on generated tarball
-      - uses: actions/setup-python@v4
+      - name: Setup python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11.0'
           cache: 'pip'
+      - name: Test importer on generated tarball
         run: |
           python -m pip install -r requirements.txt
           python -m galaxy_importer.main datadog-dd-*.tar.gz
