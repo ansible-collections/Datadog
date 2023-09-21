@@ -47,4 +47,6 @@ Note for users installing the collection through the Ansible Automation Hub: Ope
 
 ### Collection role list
 
-- `datadog.dd.agent` : Installation and configuration of the Datadog Agent ([full documentation](https://github.com/DataDog/ansible-datadog/blob/main/README.md))
+- `datadog.dd.agent` : Installation and configuration of the Datadog Agent
+  - See [the official documentation for the role](https://docs.datadoghq.com/agent/guide/ansible_standalone_role/#setup)
+  - See [the repository for the standalone role](https://github.com/DataDog/ansible-datadog#readme)
