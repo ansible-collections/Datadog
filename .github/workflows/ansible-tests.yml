@@ -23,7 +23,7 @@ jobs:
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook with the collection
         run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
-      - name: Check datadog-agent version exit 0
+      - name: Check datadog-agent version
         run: datadog-agent version
 
   ansible-tests-python2:
