@@ -1,5 +1,7 @@
 # Datadog Ansible Collection
 
+## Overview
+
 The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansible-related Datadog content. At the moment, it only contains the [Ansible Datadog Role](https://github.com/DataDog/ansible-datadog/). This role can be accessed as `datadog.dd.agent`, allowing to install and configure the Datadog Agent and integrations. Agent version 7 is installed by default.
 
 ## Setup
@@ -47,6 +49,12 @@ Note for users installing the collection through the Ansible Automation Hub: Ope
 
 ### Collection role list
 
-- `datadog.dd.agent` : Installation and configuration of the Datadog Agent
-  - See [the official documentation for the role](https://docs.datadoghq.com/agent/guide/ansible_standalone_role/#setup)
-  - See [the repository for the standalone role](https://github.com/DataDog/ansible-datadog#readme)
+- `datadog.dd.agent`: Installation and configuration of the Datadog Agent.
+  - See [the official documentation for the role](https://docs.datadoghq.com/agent/guide/ansible_standalone_role/#setup).
+  - See [the repository for the standalone role](https://github.com/DataDog/ansible-datadog#readme).
+
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Automate Agent installation with the Datadog Ansible collection](https://www.datadoghq.com/blog/datadog-ansible-collection/)
