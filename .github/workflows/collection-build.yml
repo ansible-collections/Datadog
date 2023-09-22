@@ -22,7 +22,11 @@ jobs:
       - name: Test importer on generated tarball
         run: |
           python -m pip install -r requirements.txt
-          python -m galaxy_importer.main datadog-dd-*.tar.gz
+          python -m galaxy_importer.main datadog-dd-*.tar.gz > importer.log 2>&1
+          if grep -Eqi "(error|warning)" importer.log; then
+            cat importer.log
+            exit 1
+          fi
       - name: Archive recent build
         uses: actions/upload-artifact@v3
         with:
