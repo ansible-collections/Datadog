@@ -1,3 +1,3 @@
 invoke
 pyyaml
-galaxy-importer==0.4.0.post1
+galaxy-importer==0.4.13
