@@ -7,5 +7,3 @@ updates:
       - enhancement
     schedule:
       interval: weekly
-    ignore:
-      - dependency-name: "galaxy-importer"
