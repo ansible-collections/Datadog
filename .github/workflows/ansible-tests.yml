@@ -103,7 +103,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Install python3
-        run: brew install python3
+        run: brew upgrade && brew install python3
       - name: Install Ansible
         run: pip3 install ansible==${{ matrix.ansible_version}}.*
       - name: Build the Ansible collection
