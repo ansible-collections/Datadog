@@ -27,4 +27,4 @@ jobs:
       - name: Check ansible-datadog formating
         run: |
           ansible-lint -v --profile=production --exclude=.gitlab/ --exclude=.git/ --exclude=.github/
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
