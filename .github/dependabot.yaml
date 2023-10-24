@@ -7,5 +7,9 @@ updates:
       - enhancement
     schedule:
       interval: weekly
-    ignore:
-      - dependency-name: "galaxy-importer"
+  - package-ecosystem: github-actions
+    directory: /
+    labels:
+      - enhancement
+    schedule:
+      interval: weekly
