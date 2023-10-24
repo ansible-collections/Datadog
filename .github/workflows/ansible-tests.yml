@@ -1,3 +1,4 @@
+---
 name: ansible-tests
 on:
   push:
@@ -101,7 +102,10 @@ jobs:
         agent_version: ["6", "7"]
         ansible_version: ["2.10", "4.10"]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
       - name: Install Ansible
         run: pip3 install ansible==${{ matrix.ansible_version}}.*
       - name: Build the Ansible collection
