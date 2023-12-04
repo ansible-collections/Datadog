@@ -24,6 +24,11 @@ Note that the install instructions in this document describe installation of the
   ```shell
   ansible-galaxy collection install ansible.windows
   ```
+- When using with Ansible 2.10+ to manage openSUSE/SLES hosts, requires the `community.general` collection to be installed:
+
+  ```shell
+  ansible-galaxy collection install community.general
+  ```
 
 ### Installation
 
@@ -61,7 +66,11 @@ To deploy the Datadog Agent on hosts, add the Datadog role and your API key to y
 | `datadog_apt_repo`                          | Override the default Datadog `apt` repository. Make sure to use the `signed-by` option if repository metadata is signed using Datadog's signing keys: `deb [signed-by=/usr/share/keyrings/datadog-archive-keyring.gpg] https://yourrepo`.|
 | `datadog_apt_cache_valid_time`              | Override the default apt cache expiration time (defaults to 1 hour).|
 | `datadog_apt_key_url_new`                   | Override the location from which to obtain Datadog `apt` key (the deprecated `datadog_apt_key_url` variable refers to an expired key that's been removed from the role). The URL is expected to be a GPG keyring containing keys `382E94DE`, `F14F620E` and `C0962C7D`.| 
+| `datadog_yum_repo_config_enabled`           | Set to `false` to prevent the configuration of a Datadog `yum` repository (defaults to `true`). WARNING: it deactivates the automatic update of GPG keys.|
 | `datadog_yum_repo`                          | Override the default Datadog `yum` repository.|
+| `datadog_yum_repo_proxy`                    | Set a proxy URL to use in the Datadog `yum` repo configuration.|
+| `datadog_yum_repo_proxy_username`           | Set a proxy username to use in the Datadog `yum` repo configuration.|
+| `datadog_yum_repo_proxy_password`           | Set a proxy password to use in the Datadog `yum` repo configuration.|
 | `datadog_yum_repo_gpgcheck`                 | Override the default `repo_gpgcheck` value (empty). If empty, value is dynamically set to `yes` when custom `datadog_yum_repo` is not used and system is not RHEL/CentOS 8.1 (due to [a bug](https://bugzilla.redhat.com/show_bug.cgi?id=1792506) in dnf), otherwise it's set to `no`. **Note**: repodata signature verification is always turned off for Agent 5.|
 | `datadog_yum_gpgcheck`                      | Override the default `gpgcheck` value (`yes`) - use `no` to turn off package GPG signature verification.|
 | `datadog_yum_gpgkey`                        | **Removed in version 4.18.0** Override the default URL to the Datadog `yum` key used to verify Agent v5 and v6 (up to 6.13) packages (key ID `4172A230`).|
@@ -82,9 +91,9 @@ To deploy the Datadog Agent on hosts, add the Datadog role and your API key to y
 | `datadog_apply_windows_614_fix`             | Whether or not to download and apply file referenced by `datadog_windows_614_fix_script_url` (Windows only). See https://dtdg.co/win-614-fix for more details. You can set this to `false` assuming your hosts aren't running Datadog Agent 6.14.\*.|
 | `datadog_macos_user`                        | The name of the user to run Agent under. The user has to exist, it won't be created automatically. Defaults to `ansible_user` (macOS only).|
 | `datadog_macos_download_url`                | Override the URL to download the DMG installer from (macOS only).|
-| `datadog_apm_instrumentation_enabled`       | Configure APM host injection. Possible values are: <br/> - `host`: use it when both the Agent and your services are running on a host <br/> - `docker`: use it when the Agent and your services are running in separate Docker containers on the same Host.<br/>- `all`: configures APM injection to support all the previous scenarios at the same time.|
-| `datadog_apm_instrumentation_languages`     | List of apm libraries to install if host or docker injection is enabled (defaults to `["all"]`). You can see the available values in our official docs https://docs.datadoghq.com/tracing/trace_collection/library_injection_local|
-| `datadog_apm_instrumentation_docker_config` | Configure Docker APM injection. See: https://docs.datadoghq.com/tracing/trace_collection/library_injection_local/?tab=agentandappinseparatecontainers#configure-docker-injection|
+| `datadog_apm_instrumentation_enabled`       | Configure APM instrumentation. Possible values are: <br/> - `host`: Both the Agent and your services are running on a host. <br/> - `docker`: The Agent and your services are running in separate Docker containers on the same host.<br/>- `all`: Supports all the previous scenarios for `host` and `docker` at the same time.|
+| `datadog_apm_instrumentation_languages`     | List of APM libraries to install if `host` or `docker` injection is enabled (defaults to `["all"]`). You can find the available values in [Inject Libraries Locally][24].|
+| `datadog_apm_instrumentation_docker_config` | Override Docker APM configuration. Read [configure Docker injection][23] for more details.|
 
 ### Integrations
 
@@ -665,3 +674,5 @@ To fix this, [update Ansible to `v2.9.8` or above][16].
 [20]: https://github.com/DataDog/integrations-extras
 [21]: https://github.com/DataDog/ansible-datadog/tree/nschweitzer/readme#integrations
 [22]: https://github.com/DataDog/ansible-datadog/tree/nschweitzer/readme#integrations-installation
+[23]: https://docs.datadoghq.com/tracing/trace_collection/library_injection_local/?tab=agentandappinseparatecontainers#configure-docker-injection
+[24]: https://docs.datadog.com/tracing/trace_collection/library_injection_local
