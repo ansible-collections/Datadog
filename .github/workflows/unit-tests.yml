@@ -28,6 +28,7 @@ jobs:
     ansible_lint:
       runs-on: ubuntu-latest
       steps:
+        - uses: actions/checkout@v3
         - name: Check ansible-datadog formating
           run: |
             pip install -r requirements-ansible-lint.txt
