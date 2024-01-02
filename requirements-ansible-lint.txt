@@ -1,0 +1,5 @@
+# ansible-lint is run by ansible-galaxy import, but sometimes there's a new
+# ansible-lint version that is required by Ansible Automation Hub, which is
+# not pulled in by even the latest ansible-galaxy. Hence we use separate set
+# of jobs to run just ansible-lint, and we can update it independently.
+ansible-lint==6.22.1

@@ -1,0 +1,5 @@
+# We ignore all naming in the defaults file for the Agent role.
+# Datadog has had this role for years and having to change all variables
+# in it by adding the role prefix would break all customer setups and make
+# the transition from role to collection harder.
+roles/agent/defaults/main.yml var-naming[no-role-prefix]
