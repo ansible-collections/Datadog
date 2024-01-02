@@ -21,6 +21,7 @@ jobs:
           cache: 'pip'
       - name: Test importer on generated tarball
         run: |
+          export GALAXY_IMPORTER_CONFIG=./galaxy-importer.cfg
           python -m pip install -r requirements.txt
           python -m galaxy_importer.main datadog-dd-*.tar.gz 2>&1 | tee importer.log
           if grep -Eqi "(error|warning)" importer.log; then
