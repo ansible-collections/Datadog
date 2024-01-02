@@ -24,7 +24,8 @@ jobs:
           pip install -r requirements.txt
           ansible-galaxy collection install ansible.windows community.general
           inv role.format-fqcn
-      - name: Check ansible-datadog formating
+      - name: Run ansible-lint
         run: |
-          ansible-lint -v --profile=production --exclude=.gitlab/ --exclude=.git/ --exclude=.github/
+          pip install -r requirements-ansible-lint.txt
+          ansible-lint -v
       - uses: stefanzweifel/git-auto-commit-action@v5

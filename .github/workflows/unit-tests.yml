@@ -25,3 +25,10 @@ jobs:
       steps:
         - run: |
             python -c "assert '${{ needs.sanity.result }}' == 'success'"
+    ansible_lint:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check ansible-datadog formating
+          run: |
+            pip install -r requirements-ansible-lint.txt
+            ansible-lint -v
