@@ -52,6 +52,8 @@ The API key is required and its absence causes the role to fail. If you want to 
 
 ## Role variables
 
+These variables provide additional configuration during the installation of the Datadog Agent. They should be specified in the `vars` section of your playbook.
+
 | Variable                                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |---------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `datadog_api_key`                           | Your Datadog API key. **This variable is mandatory starting from 4.21**.|
@@ -94,14 +96,14 @@ The API key is required and its absence causes the role to fail. If you want to 
 | `datadog_macos_user`                        | The name of the user to run Agent under. The user has to exist, it won't be created automatically. Defaults to `ansible_user` (macOS only).|
 | `datadog_macos_download_url`                | Override the URL to download the DMG installer from (macOS only).|
 | `datadog_apm_instrumentation_enabled`       | Configure APM instrumentation. Possible values are: <br/> - `host`: Both the Agent and your services are running on a host. <br/> - `docker`: The Agent and your services are running in separate Docker containers on the same host.<br/>- `all`: Supports all the previous scenarios for `host` and `docker` at the same time.|
-| `datadog_apm_instrumentation_languages`     | List of APM libraries to install if `host` or `docker` injection is enabled (defaults to `["all"]`). You can find the available values in [Inject Libraries Locally][24].|
+| `datadog_apm_instrumentation_libraries`     | List of APM libraries to install if `host` or `docker` injection is enabled (defaults to `["java", "js", "dotnet", "python", "ruby"]`). You can find the available values in [Inject Libraries Locally][24].|
 | `datadog_apm_instrumentation_docker_config` | Override Docker APM configuration. Read [configure Docker injection][23] for more details.|
 
 ### Integrations
 
 To configure a Datadog integration (check), add an entry to the `datadog_checks` section. The first level key is the name of the check, and the value is the YAML payload to write the configuration file. Examples are provided below.
 
-To install or remove an integration, refer to the `datadog_integrations` [paragraph][22]
+To install or remove an integration, refer to the `datadog_integration` [paragraph](#integration-installation)
 
 #### Process check
 
@@ -357,7 +359,7 @@ To upgrade from Agent v6 to v7, use `datadog_agent_major_version: 7` to install 
 
 Use the `datadog_integration` resource to install a specific version of a Datadog integration. Keep in mind, the Agent comes with the [core integrations][19] already installed. This command is useful for upgrading a specific integration without upgrading the whole Agent. For more details, see [integration management][4].
 
-If you want to configure an integration, refer to the `datadog_checks` [paragraph][21]
+If you want to configure an integration, refer to the `datadog_checks` [paragraph](#integrations)
 
 Available actions:
 
@@ -570,7 +572,7 @@ On Windows it's possible to uninstall the Agent by using the following code in y
 ```yml
 - name: Check If Datadog Agent is installed
   win_shell: |
-    (get-wmiobject win32_product -Filter "Name LIKE '%datadog%'").IdentifyingNumber
+    (@(Get-ChildItem -Path "HKLM:SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" -Recurse) | Where {$_.GetValue("DisplayName") -like "Datadog Agent" }).PSChildName
   register: agent_installed_result
 - name: Set Datadog Agent installed fact
   set_fact:
@@ -580,19 +582,6 @@ On Windows it's possible to uninstall the Agent by using the following code in y
     product_id: "{{ agent_installed }}"
     state: absent
   when: agent_installed != ""
-```
-
-However for more control over the uninstall parameters, the following code can be used.
-In this example, the '/norestart' flag is added and a custom location for the uninstallation logs is specified:
-
-```yml
-- name: Check If Datadog Agent is installed
-  win_stat:
-  path: 'c:\Program Files\Datadog\Datadog Agent\bin\agent.exe'
-  register: stat_file
-- name: Uninstall the Datadog Agent
-  win_shell: start-process msiexec -Wait -ArgumentList ('/log', 'C:\\uninst.log', '/norestart', '/q', '/x', (Get-WmiObject -Class Win32_Product -Filter "Name='Datadog Agent'" -ComputerName .).IdentifyingNumber)
-  when: stat_file.stat.exists == True
 ```
 
 ## Troubleshooting
@@ -682,7 +671,5 @@ If you need to install the agent through Ansible but don't want to specify an AP
 [18]: https://docs.datadoghq.com/security/cspm/setup/?tab=docker
 [19]: https://github.com/DataDog/integrations-core
 [20]: https://github.com/DataDog/integrations-extras
-[21]: https://github.com/DataDog/ansible-datadog/tree/nschweitzer/readme#integrations
-[22]: https://github.com/DataDog/ansible-datadog/tree/nschweitzer/readme#integrations-installation
 [23]: https://docs.datadoghq.com/tracing/trace_collection/library_injection_local/?tab=agentandappinseparatecontainers#configure-docker-injection
 [24]: https://docs.datadog.com/tracing/trace_collection/library_injection_local
