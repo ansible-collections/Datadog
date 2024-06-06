@@ -24,14 +24,14 @@
 
 # Yum Handlers  -------------------------------------
 - name: Install APM inject library (yum)
-  ansible.builtin.yum:
+  yum:
     name: 'datadog-apm-inject'
     update_cache: true
     state: latest # noqa package-latest
   when: not ansible_check_mode and ansible_pkg_mgr == "yum"
 
 - name: Install APM inject libraries (yum)
-  ansible.builtin.yum:
+  yum:
     name: "{{ (item | default([], true)) }}"
     state: "{{ 'present' if '-1' in item else 'latest' }}" # noqa package-latest
   loop: "{{ agent_dd_apm_install_pkgs }}" # noqa package-latest
