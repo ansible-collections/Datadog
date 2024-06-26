@@ -1,0 +1,58 @@
+name: Check if the collection is up to date with the ansible role
+
+on:
+  - workflow_dispatch
+  - schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      check-output: ${{ steps.check-diff.outputs.sync-needed }}
+    steps:
+      - name: Check diff between roles/agent and ansible-role main branch
+        id: check-diff
+        run: |
+          mkdir /tmp/ansible-role
+          git clone git@github.com:DataDog/ansible-datadog.git /tmp/ansible-role
+          ERROR_CODE=0
+          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ /tmp/ansible-role || ERROR_CODE=$?
+          if [ $ERROR_CODE -ne 0 ]; then
+            echo "sync-needed=true" >> $GITHUB_OUTPUT
+          fi
+
+  execute:
+    runs-on: ubuntu-latest
+    needs: check
+    if: "${{ needs.check.outputs.sync-needed == 'true' }}"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@master
+        with:
+          repository: DataDog/ansible-datadog
+          path: roles/agent
+      - name: Cleanup checked out repository
+        run: |
+          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \;
+          touch roles/agent/.gitkeep
+      - name: Edit install info file
+        run: |
+          collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
+          sed -i "s/datadog_role/datadog_collection_${collection_version}_agent_role/g" roles/agent/templates/install_info.j2
+      - name: Format ansible-datadog role
+        run: |
+          pip install -r requirements.txt
+          ansible-galaxy collection install ansible.windows community.general
+          inv role.format-fqcn
+      - name: Run ansible-lint
+        run: |
+          pip install -r requirements.txt
+          ansible-lint -v
+      - name: Create PR
+        run: |
+          PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --fill)
+          gh pr merge $PR_URL --auto
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
