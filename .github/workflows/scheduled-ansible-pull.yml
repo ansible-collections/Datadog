@@ -17,10 +17,7 @@ jobs:
           mkdir /tmp/ansible-role
           git clone git@github.com:DataDog/ansible-datadog.git /tmp/ansible-role
           ERROR_CODE=0
-          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ /tmp/ansible-role || ERROR_CODE=$?
-          if [ $ERROR_CODE -ne 0 ]; then
-            echo "sync-needed=true" >> $GITHUB_OUTPUT
-          fi
+          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ /tmp/ansible-role || "sync-needed=true" >> $GITHUB_OUTPUT
 
   execute:
     runs-on: ubuntu-latest
