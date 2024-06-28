@@ -63,7 +63,7 @@ jobs:
           ansible-lint -v
       - name: Create PR
         run: |
-          PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --fill)
+          PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --body 'test body content')
           gh pr merge $PR_URL --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
