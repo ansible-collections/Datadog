@@ -35,8 +35,7 @@ jobs:
           path: roles/agent
       - name: Apply Patches if there is any
         run: |
-          echo "$(ls patches | wc -l)"
-          if [ $(ls patches | wc -l) -gt 1 ]; then
+          if [ $(ls patches | wc -l) -gt 0 ]; then
             for patch in $(ls patches);
             do
               echo "${patch}..."
