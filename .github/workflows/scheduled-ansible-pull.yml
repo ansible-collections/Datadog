@@ -11,13 +11,16 @@ jobs:
     outputs:
       check-output: ${{ steps.check-diff.outputs.sync-needed }}
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@master
+        with:
+          repository: DataDog/ansible-datadog
+          path: /tmp/ansible-role
       - name: Check diff between roles/agent and ansible-role main branch
         id: check-diff
         run: |
-          mkdir /tmp/ansible-role
-          git clone https://github.com/DataDog/ansible-datadog.git /tmp/ansible-role
-          ERROR_CODE=0
           diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ /tmp/ansible-role || "sync-needed=true" >> $GITHUB_OUTPUT
+        echo "DEBUG: $GITHUB_OUTPUT"
 
   execute:
     runs-on: ubuntu-latest
