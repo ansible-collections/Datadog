@@ -3,7 +3,7 @@ name: Check if the collection is up to date with the ansible role
 on:
   workflow_dispatch:
   schedule:
-    cron: '0 4 * * *'
+    - cron: '0 4 * * *'
 
 jobs:
   check:
@@ -22,7 +22,7 @@ jobs:
   execute:
     runs-on: ubuntu-latest
     needs: check
-    if: "${{ needs.check.outputs.sync-needed == 'true' }}"
+    if: "${{ needs.check.outputs.check-output == 'true' }}"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/checkout@master
