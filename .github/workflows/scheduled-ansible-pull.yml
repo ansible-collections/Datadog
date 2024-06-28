@@ -29,6 +29,16 @@ jobs:
         with:
           repository: DataDog/ansible-datadog
           path: roles/agent
+      - name: Apply Patches if there is any
+        run: |
+          if [ $(ls patches | wc -l) -gt 1 ]; then
+            for patch in $(ls patches);
+            do
+              if [ "$patch" != ".gtikeep" ]; then
+                git apply --verbose $patch
+              fi
+            done
+          fi
       - name: Cleanup checked out repository
         run: |
           find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \;
