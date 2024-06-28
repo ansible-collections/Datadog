@@ -39,7 +39,7 @@ jobs:
             for patch in $(ls patches);
             do
               if [ "$patch" != ".gtikeep" ]; then
-                git apply --verbose $patch
+                git -C roles/agent/ apply --verbose $patch
               fi
             done
           fi
