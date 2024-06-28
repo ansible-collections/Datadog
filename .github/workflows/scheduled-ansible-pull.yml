@@ -40,7 +40,7 @@ jobs:
             do
               echo "${patch}..."
               if [ "$patch" != ".gtikeep" ]; then
-                git -C roles/agent/ apply --verbose "../../$patch"
+                git -C roles/agent/ apply --verbose "../../patches/$patch"
               fi
             done
           fi
