@@ -35,15 +35,13 @@ jobs:
           path: roles/agent
       - name: Apply Patches if there is any
         run: |
-          if [ $(ls patches | wc -l) -gt 0 ]; then
-            for patch in $(ls patches);
-            do
-              echo "${patch}..."
-              if [ "$patch" != ".gtikeep" ]; then
-                git -C roles/agent/ apply --verbose "../../patches/$patch"
-              fi
-            done
-          fi
+          for patch in $(ls patches);
+          do
+            echo "${patch}..."
+            if [ "$patch" != ".gtikeep" ]; then
+              git -C roles/agent/ apply --verbose "../../patches/$patch"
+            fi
+          done
       - name: Cleanup checked out repository
         run: |
           find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \;
@@ -61,10 +59,22 @@ jobs:
         run: |
           pip install -r requirements.txt
           ansible-lint -v
-      - name: Create PR
+      - name: Create a PR with new changes
         run: |
-          PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --body 'test body content')
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git checkout -b github-action/sync-$GITHUB_ID
+          git add . && git commit -m "Pull ansible-datadog"
+          git push --set-upstream origin github-action/sync-$GITHUB_ID
+          PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --body 'Pull latest ansible-datadog version inside of the collection')
           gh pr merge $PR_URL --auto
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ID: ${{ GITHUB_RUN_ID }}
 
+          
+# NOTE: 
+# create branch with the new changes -> create PR -> auto merge
+#
+#
+#
