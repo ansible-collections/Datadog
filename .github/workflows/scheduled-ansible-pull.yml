@@ -1,7 +1,6 @@
 name: Check if the collection is up to date with the ansible role
 
 on:
-  push:
   workflow_dispatch:
   schedule:
     - cron: '0 4 * * *'
