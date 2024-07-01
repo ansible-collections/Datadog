@@ -1,9 +1,9 @@
 name: Check if the collection is up to date with the ansible role
 
 on:
-  push: # TEMPORARY DEBUG
-  #  schedule:
-  #  - cron: '0 4 * * *'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
   check:
@@ -65,7 +65,7 @@ jobs:
           git add . && git commit -m "Pull ansible-datadog"
           git push --set-upstream origin github-action/sync-$GITHUB_ID
           PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --body 'Pull latest ansible-datadog version inside of the collection')
-          gh pr merge $PR_URL --auto
+          gh pr merge $PR_URL --squash --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ID: ${{ github.run_id }}
