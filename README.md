@@ -79,7 +79,7 @@ If you need support, you can create in issue or open a support ticket to datadog
 
 ## Release Notes
 
-You can follow changes in our [CHANGELOG](CHANGELOG.rst) file
+You can follow changes in our [CHANGELOG](https://github.com/ansible-collections/Datadog/blob/main/CHANGELOG.rst) file
 
 ## Related Information
 
@@ -91,4 +91,4 @@ You can follow changes in our [CHANGELOG](CHANGELOG.rst) file
 
 ## License Information
 
-This repository is under [Apache License 2.0](LICENSE).
+This repository is under [Apache License 2.0](https://github.com/ansible-collections/Datadog/blob/main/LICENSE).
