@@ -54,8 +54,6 @@ The Datadog Ansible collection is also available through the [Red Hat Automation
 
 ## Use Cases
 
-This section should outline in detail 3-5 common use cases for the collection. These should be informative examples of how the collection has been used, or how you’d like to see it be used. 
-
 To deploy the Datadog Agent on hosts, add the Datadog role and your API key to your playbook:
 
 ```yaml
@@ -81,7 +79,7 @@ If you need support, you can create in issue or open a support ticket to datadog
 
 ## Release Notes
 
-You can follow changes in our CHANGELOG file
+You can follow changes in our [CHANGELOG](CHANGELOG.rst) file
 
 ## Related Information
 
@@ -93,4 +91,4 @@ You can follow changes in our CHANGELOG file
 
 ## License Information
 
-This repository is under Apache License 2.0.
+This repository is under [Apache License 2.0](LICENSE).
