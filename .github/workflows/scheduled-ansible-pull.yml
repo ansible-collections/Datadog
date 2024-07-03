@@ -19,7 +19,6 @@ jobs:
       - name: Check diff between roles/agent and ansible-role main branch
         id: check-diff
         run: |
-          set 
           diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ ansible-role/ || echo "sync-needed=true" >> $GITHUB_OUTPUT
           echo "DEBUG: $GITHUB_OUTPUT"
 
