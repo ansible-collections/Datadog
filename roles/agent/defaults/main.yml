@@ -112,6 +112,9 @@ datadog_yum_gpgkey_20200908_sha256sum: "4d16c598d3635086762bd086074140d947370077
 # this key expires in 2028
 datadog_yum_gpgkey_20280418: "https://s3.amazonaws.com/public-signing-keys/DATADOG_RPM_KEY_B01082D3.public"
 datadog_yum_gpgkey_20280418_sha256sum: "d309232f05bcfb5df7fce1a22b0920476254135083058206978aa57910698101"
+# this key expires in 2033
+datadog_yum_gpgkey_4f09d16b: "https://s3.amazonaws.com/public-signing-keys/DATADOG_RPM_KEY_4F09D16B.public"
+datadog_yum_gpgkey_4f09d16b_sha256sum: "a4dc0e09751cf0e01da7b4095e432f6330c11b1fef41cacd1f2c8981596eaf2b"
 
 # By default, we fail early & print a helpful message if an older Ansible version and Python 3
 # interpreter is used on CentOS < 8. The 'yum' module is only available on Python 2, and the 'python3-dnf'
@@ -136,7 +139,8 @@ datadog_zypper_gpgkey_20200908: "https://s3.amazonaws.com/public-signing-keys/DA
 datadog_zypper_gpgkey_20200908_sha256sum: "4d16c598d3635086762bd086074140d947370077607db6d6395b8523d5c23a7d"
 datadog_zypper_gpgkey_20280418: "https://s3.amazonaws.com/public-signing-keys/DATADOG_RPM_KEY_B01082D3.public"
 datadog_zypper_gpgkey_20280418_sha256sum: "d309232f05bcfb5df7fce1a22b0920476254135083058206978aa57910698101"
-
+datadog_zypper_gpgkey_4f09d16b: "https://s3.amazonaws.com/public-signing-keys/DATADOG_RPM_KEY_4F09D16B.public"
+datadog_zypper_gpgkey_4f09d16b_sha256sum: "a4dc0e09751cf0e01da7b4095e432f6330c11b1fef41cacd1f2c8981596eaf2b"
 # Avoid checking if the agent is running or not. This can be useful if you're
 # using sysvinit and providing your own init script.
 datadog_skip_running_check: false
@@ -224,6 +228,8 @@ datadog_apt_default_keys:
     value: https://s3.amazonaws.com/public-signing-keys/DATADOG_APT_KEY_F14F620E.public
   - key: 5F1E256061D813B125E156E8E6266D4AC0962C7D
     value: https://s3.amazonaws.com/public-signing-keys/DATADOG_APT_KEY_C0962C7D.public
+  - key: D18886567EABAD8B2D2526900D826EB906462314
+    value: https://s3.amazonaws.com/public-signing-keys/DATADOG_APT_KEY_06462314.public
 
 # The default apt repository for each major Agent version is specified in the following variables.
 datadog_agent5_apt_repo: "deb [signed-by={{ datadog_apt_usr_share_keyring }}] https://apt.datadoghq.com/ stable main"
@@ -248,12 +254,12 @@ datadog_macos_download_url: ""
 
 # The default dmg package for each major Agent version is specified in the following variables.
 # These variables are for internal use only, do not modify them.
-datadog_macos_agent6_latest_url: "https://s3.amazonaws.com/dd-agent/datadog-agent-6-latest.dmg"
-datadog_macos_agent7_latest_url: "https://s3.amazonaws.com/dd-agent/datadog-agent-7-latest.dmg"
+datadog_macos_agent6_latest_url: "https://install.datadoghq.com/datadog-agent-6-latest.dmg"
+datadog_macos_agent7_latest_url: "https://install.datadoghq.com/datadog-agent-7-latest.dmg"
 
 # If datadog_agent_version is set, the role will use the following url prefix instead, and append the version number to it
 # in order to get the full url to the dmg package.
-datadog_macos_versioned_url: "https://s3.amazonaws.com/dd-agent/datadog-agent"
+datadog_macos_versioned_url: "https://install.datadoghq.com/datadog-agent"
 
 datadog_macos_user: "{{ ansible_user }}"
 datadog_macos_service_name: "com.datadoghq.agent"
@@ -262,3 +268,5 @@ datadog_macos_system_plist_file_path: "/Library/LaunchDaemons/{{ datadog_macos_s
 datadog_macos_etc_dir: "/opt/datadog-agent/etc"
 datadog_macos_logs_dir: "/opt/datadog-agent/logs"
 datadog_macos_run_dir: "/opt/datadog-agent/run"
+
+datadog_installer_enabled: false

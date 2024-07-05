@@ -6,8 +6,8 @@ The Datadog Agent Ansible role installs and configures the Datadog Agent and int
 
 The Datadog Agent Ansible role is available through 2 different channels:
 
-* As part of the Datadog collection, accessible under the [datadog.dd](https://galaxy.ansible.com/DataDog/dd) name on Ansible Galaxy (recommended).
-* As a standalone role, accessible under the [datadog.datadog](https://galaxy.ansible.com/DataDog/datadog) name on Ansible Galaxy (legacy).
+* As part of the Datadog collection, accessible under the [datadog.dd](https://galaxy.ansible.com/ui/repo/published/datadog/dd/) name on Ansible Galaxy (recommended).
+* As a standalone role, accessible under the [datadog.datadog](https://galaxy.ansible.com/ui/repo/published/datadog/dd/content/role/agent/) name on Ansible Galaxy (legacy).
 
 Version `4` of the role and version `5` of the collection install the Datadog Agent v7 by default.
 
@@ -98,6 +98,7 @@ These variables provide additional configuration during the installation of the 
 | `datadog_apm_instrumentation_enabled`       | Configure APM instrumentation. Possible values are: <br/> - `host`: Both the Agent and your services are running on a host. <br/> - `docker`: The Agent and your services are running in separate Docker containers on the same host.<br/>- `all`: Supports all the previous scenarios for `host` and `docker` at the same time.|
 | `datadog_apm_instrumentation_libraries`     | List of APM libraries to install if `host` or `docker` injection is enabled (defaults to `["java", "js", "dotnet", "python", "ruby"]`). You can find the available values in [Inject Libraries Locally][24].|
 | `datadog_apm_instrumentation_docker_config` | Override Docker APM configuration. Read [configure Docker injection][23] for more details.|
+| `datadog_remote_updates`                    | Enable remote installation and updates through the datadog-installer.|
 
 ### Integrations
 
@@ -344,8 +345,8 @@ When the variable `datadog_macos_download_url` is not set, the official macOS DM
 
 | Agent version | Default macOS DMG package URL                                |
 |---------------|--------------------------------------------------------------|
-| 6             | https://s3.amazonaws.com/dd-agent/datadog-agent-6-latest.dmg |
-| 7             | https://s3.amazonaws.com/dd-agent/datadog-agent-7-latest.dmg |
+| 6             | https://install.datadoghq.com/datadog-agent-6-latest.dmg |
+| 7             | https://install.datadoghq.com/datadog-agent-7-latest.dmg |
 
 To override the default behavior, set this variable to something other than an empty string.
 
