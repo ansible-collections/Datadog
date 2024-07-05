@@ -1,5 +1,5 @@
 ---
-- name: Set upper bound last supported Agent version for Centos < 7
+- name: Check for Centos < 7 and adjust features
   when: ansible_facts.os_family == "RedHat"
   block:
     - name: Get RHEL major version equivalent
@@ -11,6 +11,10 @@
       ansible.builtin.set_fact:
         datadog_agent_max_minor_version: 51
       when: rhel_version.stdout | int < 7
+    - name: Disable datadog installer
+      ansible.builtin.set_fact:
+        datadog_installer_enabled: false
+      when: datadog_installer_enabled and rhel_version.stdout | int < 7
 
 - name: Fail if specified agent version is above maximum supported by Centos < 7 and equivalent
   ansible.builtin.fail:
@@ -98,6 +102,19 @@
         state: present
       when: not ansible_check_mode
 
+    - name: Download future RPM key (Expires in 2033)
+      ansible.builtin.get_url:
+        url: "{{ datadog_yum_gpgkey_4f09d16b }}"
+        dest: /tmp/DATADOG_RPM_KEY_4FA09D16B.public
+        mode: '600'
+        checksum: "sha256:{{ datadog_yum_gpgkey_4f09d16b_sha256sum }}"
+
+    - name: Import future RPM key (Expires in 2033)
+      ansible.builtin.rpm_key:
+        key: /tmp/DATADOG_RPM_KEY_4FA09D16B.public
+        state: present
+      when: not ansible_check_mode
+
     - name: Set APM injection languages and versions for Redhat
       ansible.builtin.set_fact:
         agent_dd_apm_install_pkgs: "{{ (agent_dd_apm_install_pkgs |
@@ -107,15 +124,16 @@
 
     - name: Set versioned includepkgs variable
       ansible.builtin.set_fact:
-        agent_datadog_includepkgs:
-          "{{ datadog_agent_flavor }}-{{ agent_datadog_agent_redhat_version | regex_replace('^\\d+:', '') }} {{ datadog_inject_apm_flavor}}
-           {{ agent_dd_apm_install_pkgs | default([], true) | join(' ') }}"
+        agent_datadog_includepkgs: "{{ datadog_agent_flavor }}-{{ agent_datadog_agent_redhat_version
+        | regex_replace('^\\d+:', '') }}
+        {{ datadog_inject_apm_flavor }}
+        {{ agent_dd_apm_install_pkgs | default([], true) | join(' ') }}"
       when: agent_datadog_agent_redhat_version is defined
 
     - name: Set plain includepkgs variable
       ansible.builtin.set_fact:
-        agent_datadog_includepkgs: "{{ datadog_agent_flavor }} {{ datadog_inject_apm_flavor}} {{ agent_dd_apm_install_pkgs |
-          default([], true) | join(' ') }}"
+        agent_datadog_includepkgs: "{{ datadog_agent_flavor }} {{ datadog_inject_apm_flavor }}
+         {{ agent_dd_apm_install_pkgs | default([], true) | join(' ') }}"
       when: agent_datadog_agent_redhat_version is not defined
 
     - name: Install Datadog Agent 5 yum repo
@@ -222,6 +240,10 @@
         name: ansible_datadog_{{ item }}
         state: absent
       with_items: [5, 6, 7, custom]
+
+- name: Include installer setup
+  ansible.builtin.include_tasks: installer-setup.yml
+  when: datadog_installer_enabled
 
 - name: Include redhat agent pinned version install task
   ansible.builtin.include_tasks: pkg-redhat/install-pinned.yml
