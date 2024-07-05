@@ -41,6 +41,8 @@
       value: "{{ datadog_apt_key_url_new }}"
     - key: 5F1E256061D813B125E156E8E6266D4AC0962C7D
       value: "{{ datadog_apt_key_url_new }}"
+    - key: D18886567EABAD8B2D2526900D826EB906462314
+      value: "{{ datadog_apt_key_url_new }}"
   when: datadog_apt_key_url_new is defined and not ansible_check_mode
 
 - name: Ensure keyring1 exists with same contents as keyring2 for older distro versions.
@@ -114,6 +116,10 @@
     state: present
     update_cache: true
   when: (datadog_apt_repo | length > 0) and (not ansible_check_mode)
+
+- name: Include installer setup
+  ansible.builtin.include_tasks: installer-setup.yml
+  when: datadog_installer_enabled
 
 - name: Include debian pinned version install task
   ansible.builtin.include_tasks: pkg-debian/install-pinned.yml
