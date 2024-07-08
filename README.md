@@ -1,19 +1,19 @@
-# Datadog ansible collection
+# Datadog Ansible Collection
 
 ## Description
 
-The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansible-related Datadog content. At the moment, it only contains the [Ansible Datadog Role](https://github.com/DataDog/ansible-datadog/). This role can be accessed as `datadog.dd.agent`, allowing to install and configure the Datadog Agent and integrations. Agent version 7 is installed by default.
+The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansible-related Datadog content. It contains the [Ansible Datadog Role](https://github.com/DataDog/ansible-datadog/), which can be accessed as `datadog.dd.agent`, allowing you to install and configure the Datadog Agent and integrations. Agent version 7 is installed by default.
 
 ## Requirements
 
-- Requires Ansible v2.10+.
+- Ansible v2.10+.
 - Supports most Debian, RHEL-based and SUSE-based Linux distributions, macOS, and Windows.
-- When using to manage Windows hosts, requires the `ansible.windows` collection to be installed:
+- To manage Windows hosts, install the `ansible.windows` collection:
 
   ```shell
   ansible-galaxy collection install ansible.windows
   ```
-- When using to manage openSUSE/SLES hosts, requires the `community.general` collection to be installed:
+- When managing openSUSE/SLES hosts, install the `community.general` collection:
   
   ```shell
   ansible-galaxy collection install community.general
@@ -21,13 +21,13 @@ The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansi
 
 ## Installation
 
-Before using this collection, you need to install it with the Ansible Galaxy command-line tool:
+Before using this collection, install it with the Ansible Galaxy command-line tool:
 
 ```
 ansible-galaxy collection install datadog.dd
 ```
 
-You can also include it in a requirements.yml file and install it with ansible-galaxy collection install -r requirements.yml, using the format:
+Alternatively, include it in a `requirements.yml` file and install it with `ansible-galaxy collection install -r requirements.yml`. Include the following in `requirments.yml`:
 
 
 ```yaml
@@ -35,14 +35,14 @@ collections:
   - name: datadog.dd
 ```
 
-Note that if you install the collection from Ansible Galaxy, it will not be upgraded automatically when you upgrade the Ansible package. 
+**Note**: If you install the collection from Ansible Galaxy, it will not be upgraded automatically when you upgrade the Ansible package. 
 To upgrade the collection to the latest available version, run the following command:
 
 ```
 ansible-galaxy collection install datadog.dd --upgrade
 ```
 
-You can also install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). Use the following syntax to install version 5.0.0:
+You can install a specific version of the collection, for example, if you need to downgrade when something is broken in the latest version (please report an issue in this repository). The following syntax shows how to install version 5.0.0:
 
 ```
 ansible-galaxy collection install datadog.dd:==5.0.0
@@ -52,7 +52,7 @@ See [using Ansible collections](https://docs.ansible.com/ansible/devel/user_guid
 
 The Datadog Ansible collection is also available through the [Red Hat Automation Hub](https://console.redhat.com/ansible/automation-hub/repo/published/datadog/dd/), where it is officially certified by Red Hat.
 
-## Use Cases
+## Use cases
 
 To deploy the Datadog Agent on hosts, add the Datadog role and your API key to your playbook:
 
@@ -66,29 +66,36 @@ To deploy the Datadog Agent on hosts, add the Datadog role and your API key to y
     datadog_api_key: "<YOUR_DD_API_KEY>"
 ```
 
-Note for users installing the collection through the Ansible Automation Hub: OpenSUSE/SLES functionality depends on a community collection `community.general`. Red Hat Support does not provide support for any issues related to community content. Thus, all support issues for OpenSUSE/SLES should be directed to Datadog Support.
+**Note**: If you install the collection through the Ansible Automation Hub, OpenSUSE/SLES functionality depends on a community collection `community.general`. Red Hat Support does not provide support for issues related to community content. Direct all support issues for OpenSUSE/SLES to [Datadog Support][1].
 
 
 ## Testing
 
-Collection tested on centos, debian, rocky linux, opensuse, windows and macOS. Running with latest ansible-lint version and sanity checks running with python 3.9 to python 3.12.
+The Datadog Collection is tested on CentOS, Debian, Rocky Linux, OpenSUSE, Windows and macOS. Tests are run with latest `ansible-lint` version and sanity checks running with Python 3.9 to Python 3.12.
 
 ## Support
 
-If you need support, you can create in issue or open a support ticket to datadog directly.
+If you need support, you can create in issue in the `ansible-collections` GitHub repo, or contact [Datadog Support][1].
 
-## Release Notes
+## Release motes
 
-You can follow changes in our [CHANGELOG](https://github.com/ansible-collections/Datadog/blob/main/CHANGELOG.rst) file
+You can follow changes in the [CHANGELOG][2] file.
 
-## Related Information
+## Further reading
 
-### Collection role list
+- [Automate Agent installation with the Datadog Ansible collection][6]
+- Collection role: `datadog.dd.agent`: Installation and configuration of the Datadog Agent.
+  - See [the official documentation for the role][3].
+  - See [the repository for the standalone role][4].
 
-- `datadog.dd.agent`: Installation and configuration of the Datadog Agent.
-  - See [the official documentation for the role](https://docs.datadoghq.com/agent/guide/ansible_standalone_role/#setup).
-  - See [the repository for the standalone role](https://github.com/DataDog/ansible-datadog#readme).
+## License information
 
-## License Information
+The Datadog Ansible collection is published under [Apache License 2.0][5].
 
-This repository is under [Apache License 2.0](https://github.com/ansible-collections/Datadog/blob/main/LICENSE).
+[1]: https://docs.datadoghq.com/help/
+[2]: https://github.com/ansible-collections/Datadog/blob/main/CHANGELOG.rst
+[3]: https://docs.datadoghq.com/agent/guide/ansible_standalone_role/#setup
+[4]: https://github.com/DataDog/ansible-datadog#readme
+[5]: https://github.com/ansible-collections/Datadog/blob/main/LICENSE
+[6]: https://www.datadoghq.com/blog/datadog-ansible-collection/
+
