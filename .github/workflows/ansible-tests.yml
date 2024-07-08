@@ -60,7 +60,7 @@ jobs:
           Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
           Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
       - uses: actions/checkout@v1
-      - uses: Vampire/setup-wsl@v2
+      - uses: Vampire/setup-wsl@v3
         with:
           distribution: Ubuntu-22.04
       - name: Generate random password and set it in env vars
