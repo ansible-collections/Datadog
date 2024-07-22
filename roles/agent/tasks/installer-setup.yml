@@ -22,7 +22,7 @@
   when: ansible_facts.os_family in ["RedHat", "Rocky", "AlmaLinux"] and not ansible_check_mode and ansible_pkg_mgr == "dnf"
 
 - name: Install latest datadog-agent package (yum)
-  yum:
+  ansible.builtin.yum:
     name: "datadog-installer"
     update_cache: true
     state: latest # noqa package-latest

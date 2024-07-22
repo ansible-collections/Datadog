@@ -10,7 +10,7 @@
   notify: restart datadog-agent
 
 - name: Install pinned datadog-agent package (yum)
-  yum:
+  ansible.builtin.yum:
     # We have to add architecture, because yum only understands epoch when architecture is also specified
     name: "{{ datadog_agent_flavor }}-{{ agent_datadog_agent_redhat_version }}.{{ ansible_facts.architecture }}"
     update_cache: true
