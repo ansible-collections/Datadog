@@ -1,4 +1,10 @@
-5.4.0 / 2024-06-04
+5.4.1 / 2024-07-22
+==================
+
+* [BUGFIX] Fix ansible-lint fqcm warnings.
+
+
+5.4.0 / 2024-07-22
 ==================
 
 * The collection contains the `Agent role 4.24.0 <https://github.com/DataDog/ansible-datadog/blob/main/CHANGELOG.md#4240--2024-07-18>`_.
