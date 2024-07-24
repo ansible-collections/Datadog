@@ -18,7 +18,7 @@
   notify: restart datadog-agent
 
 - name: Install latest datadog-agent package (yum)
-  ansible.builtin.yum:
+  yum:
     name: "{{ datadog_agent_target }}"
     update_cache: true
     state: latest # noqa package-latest
