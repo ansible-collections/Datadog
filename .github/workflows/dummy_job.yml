@@ -22,6 +22,7 @@ jobs:
         git add README.md
         git commit -m "Add dummy change to README"
         git push --set-upstream origin dummy-branch
-        gh auth setup-git
         PR_URL=$(gh pr create --title 'test pr' --body 'test pr')
         echo $PR_URL
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
