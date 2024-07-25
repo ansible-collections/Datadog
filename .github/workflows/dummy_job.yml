@@ -17,11 +17,11 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "<>"
-        git checkout -b dummy-branch
+        git checkout -b dummy-branch2
         echo "# Dummy Change" >> README.md
         git add README.md
         git commit -m "Add dummy change to README"
-        git push --set-upstream origin dummy-branch
+        git push --set-upstream origin dummy-branch2
         PR_URL=$(gh pr create --title 'test pr' --body 'test pr')
         echo $PR_URL
       env:
