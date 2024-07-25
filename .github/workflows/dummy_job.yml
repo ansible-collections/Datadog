@@ -9,24 +9,17 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@master
-      
-    - name: make sure ssh key has len > 0
-      run: |
-        if [ -z "$SSH_PRIVATE_KEY" ]; then
-          echo "SSH_PRIVATE_KEY is not set"
-          exit 1
-        fi
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      uses: actions/checkout@v4
+      with:
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    # - name: push dummy changes
-    #   run: |
-    #     git config --global user.name "GitHub Actions Bot"
-    #     git config --global user.email "<>"
-    #     echo "# Dummy Change" >> README.md
-    #     git add README.md
-    #     git commit -m "Add dummy change to README"
-    #     git push --set-upstream origin dummy-branch
-    #     PR_URL=$(gh pr create --title 'test pr' --body 'test pr')
-    #     echo $PR_URL
+    - name: push dummy changes
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "<>"
+        echo "# Dummy Change" >> README.md
+        git add README.md
+        git commit -m "Add dummy change to README"
+        git push --set-upstream origin dummy-branch
+        PR_URL=$(gh pr create --title 'test pr' --body 'test pr')
+        echo $PR_URL
