@@ -1,0 +1,25 @@
+name: Create PR with Dummy Changes
+
+on:
+  push:
+
+jobs:
+  createPR:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@master
+      with:
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: push dummy changes
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "<>"
+        echo "# Dummy Change" >> README.md
+        git add README.md
+        git commit -m "Add dummy change to README"
+        git push --set-upstream origin dummy-branch
+        PR_URL=$(gh pr create --title 'test pr' --body 'test pr')
+        echo $PR_URL
