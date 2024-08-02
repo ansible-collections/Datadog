@@ -26,12 +26,12 @@
 - name: Set Facts for Datadog Agent Major Version
   ansible.builtin.include_tasks: set-parse-version.yml
 
+- name: Configure Datadog Installer
+  ansible.builtin.include_tasks: installer-config.yml
+
 - name: Check and resolve APM injection settings
   ansible.builtin.include_tasks: apm-inject-check.yml
   when: datadog_apm_instrumentation_enabled | length > 0
-
-- name: Configure Datadog Installer
-  ansible.builtin.include_tasks: installer-config.yml
 
 - name: Debian Install Tasks
   ansible.builtin.include_tasks: pkg-debian.yml
