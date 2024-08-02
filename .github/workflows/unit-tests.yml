@@ -10,7 +10,7 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - name: Check if collection version correctly matches install_info
               run: |
                 galaxy_collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
