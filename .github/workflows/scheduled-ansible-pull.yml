@@ -16,7 +16,7 @@ jobs:
         with:
           repository: DataDog/ansible-datadog
           path: ansible-role
-     - name: Cleanup checked out repository
+      - name: Cleanup checked out repository
         run: |
           # Keep only non-git related files in the folder
           find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \; 
