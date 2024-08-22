@@ -16,11 +16,26 @@ jobs:
         with:
           repository: DataDog/ansible-datadog
           path: ansible-role
+      - name: Apply Patches if there is any
+        run: |
+          for patch in $(ls patches)
+          do
+            echo "${patch}..."
+            git -C ./ansible-role/ apply --verbose "../patches/$patch"
+          done
+      - name: Cleanup checked out repository
+        run: |
+          # Keep only non-git related files in the folder
+          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \; 
+      - name: Format ansible-datadog role
+        run: |
+          pip install -r requirements.txt
+          ansible-galaxy collection install ansible.windows community.general
+          inv role.format-fqcn
       - name: Check diff between roles/agent and ansible-role main branch
         id: check-diff
         run: |
-          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ ansible-role/ || echo "sync-needed=true" >> $GITHUB_OUTPUT
-          echo "DEBUG: $GITHUB_OUTPUT"
+          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x install_info.j2 -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ ansible-role/ || echo "sync-needed=true" >> $GITHUB_OUTPUT
 
   execute:
     runs-on: ubuntu-latest
@@ -31,7 +46,7 @@ jobs:
         with:
           # Using a deploy key is required to trigger on_push workflows when pushing changes.
           # https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#workarounds-to-trigger-further-workflow-runs
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Empty roles/agent folder
         run: |
           rm -rf roles/agent/*
@@ -77,3 +92,16 @@ jobs:
           # Note that it won't trigger `on: pull_request` workflows.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ID: ${{ github.run_id }}
+  
+  fail_notification:
+    runs-on: ubuntu-latest
+    needs: [check, execute]
+    if: "${{ always() && contains(needs.*.result, 'failure') }}"
+    steps:
+      - name: Notify the workflow failure to agent-delivery
+        run: |
+          payload="{\"text\":\":alert_party: The ansible-collection sync workflow failed ! Please check the following <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|workflow error>.\"}"
+          curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_URL
+        env:
+          SLACK_URL: ${{ secrets.NOTIF_WEBHOOK_URL }}
+
