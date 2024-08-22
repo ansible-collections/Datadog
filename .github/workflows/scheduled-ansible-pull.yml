@@ -101,7 +101,7 @@ jobs:
     steps:
       - name: Notify the workflow failure to agent-delivery
         run: |
-          payload = "{\"text\":\"[TEST]:alert_party: The ansible-collection sync workflow failed ! Please check the following <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\|workflow error>.\"}"
+          payload="{\"text\":\"[TEST]:alert_party: The ansible-collection sync workflow failed ! Please check the following <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\|workflow error>.\"}"
           curl -X POST -H 'Content-type: application/json' --data $payload $SLACK_URL
         env:
           SLACK_URL: ${{ secrets.NOTIF_WEBHOOK_URL }}
