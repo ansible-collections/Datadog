@@ -16,6 +16,27 @@ jobs:
         with:
           repository: DataDog/ansible-datadog
           path: ansible-role
+      - name: Apply Patches if there is any
+        run: |
+          for patch in $(ls patches)
+          do
+            echo "${patch}..."
+            git -C roles/agent/ apply --verbose "../../patches/$patch"
+          done
+      - name: Cleanup checked out repository
+        run: |
+          # Keep only non-git related files in the folder
+          find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \; 
+      - name: Edit install info file
+        run: |
+          collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
+          sed -i "s/datadog_role/datadog_collection_${collection_version}_agent_role/g" roles/agent/templates/install_info.j2
+      - name: Format ansible-datadog role
+        run: |
+          pip install -r requirements.txt
+          ansible-galaxy collection install ansible.windows community.general
+          inv role.format-fqcn
+ 
       - name: Check diff between roles/agent and ansible-role main branch
         id: check-diff
         run: |
