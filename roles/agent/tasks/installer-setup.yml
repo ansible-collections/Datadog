@@ -28,6 +28,12 @@
   ansible.builtin.include_tasks: pkg-suse/install-installer-zypper.yml
   when: ansible_facts.os_family == "Suse" and not ansible_check_mode
 
+- name: Set the datadog agent version
+  ansible.builtin.set_fact:
+    datadog_agent_major_version: "{{ datadog_agent_version.split('.', 1).0 }}"
+    datadog_agent_minor_version: "{{ datadog_agent_version.split('.', 1).1 }}"
+  when: datadog_agent_version
+
 - name: Bootstrap the installer
   ansible.builtin.command: /usr/bin/datadog-bootstrap bootstrap
   register: datadog_installer_bootstrap_result
@@ -41,6 +47,8 @@
     DD_APM_INSTRUMENTATION_LIBRARIES: "{{ datadog_apm_instrumentation_libraries | join(',') }}"
     DD_INSTALLER_REGISTRY_AUTH_INSTALLER_PACKAGE: "{{ datadog_installer_auth }}"
     DD_INSTALLER_REGISTRY_URL_INSTALLER_PACKAGE: "{{ datadog_installer_registry }}"
+    DD_AGENT_MAJOR_VERSION: "{{ datadog_agent_major_version | default('') }}"
+    DD_AGENT_MINOR_VERSION: "{{ datadog_agent_minor_version | default('') }}"
   ignore_errors: true
   when: not datadog_installer_install_result.failed
   changed_when: true
@@ -54,10 +62,15 @@
 
 - name: Check if installer owns apm injector package
   ansible.builtin.command: datadog-installer is-installed "{{ datadog_inject_apm_flavor }}"
-  failed_when: datadog_installer_owns_injector.rc != 0 and datadog_installer_owns_injector.rc != 10
-  register: datadog_installer_owns_injector
+  failed_when: datadog_installer_owns_injector_result.rc != 0 and datadog_installer_owns_injector_result.rc != 10
+  register: datadog_installer_owns_injector_result
   when: not datadog_installer_bootstrap_result.failed
   changed_when: true
+
+- name: Register if the installer owns apm injector package
+  ansible.builtin.set_fact:
+    datadog_installer_owns_injector: "{{ datadog_installer_owns_injector_result.rc == 0 }}"
+  when: not datadog_installer_bootstrap_result.failed
 
 - name: Disable agent install if owned by installer
   ansible.builtin.set_fact:
@@ -88,8 +101,9 @@
 
 - name: Update version number for APM libraries not owned by the installer
   ansible.builtin.set_fact:
-    pre_processed_datadog_apm_libraries: "{{ pre_processed_datadog_apm_libraries | default([], true) |
-       difference([(item.item | regex_replace('[:]latest', ''))]) }}"
+    pre_processed_datadog_apm_libraries: "{{ pre_processed_datadog_apm_libraries | default([], true) | difference(
+      [(item.item | regex_replace('$', '-1') | regex_replace('^datadog-apm-library-', '') )]
+      + [(item.item | regex_replace('[:]latest', '')  | regex_replace('^datadog-apm-library-', '') )]) }}"
   loop: "{{ datadog_installer_owned_apm_packages.results }}"
   when:
     - item.rc == 0
