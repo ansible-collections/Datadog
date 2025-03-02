@@ -50,6 +50,25 @@ To deploy the Datadog Agent on hosts, add the Datadog role and your API key to y
 
 The API key is required and its absence causes the role to fail. If you want to provide it through another way, outside of Ansible's control, specify a placeholder key and substitute the key at a later point.
 
+### Air-gapped environments
+
+To install Datadog in an air-gapped environment using a specific registry and images, use the Datadog Ansible collection along with the `datadog_installer_registry`, `datadog_installer_auth`, and `agent_datadog_config` variables. 
+
+**Note**: `agent_datadog_config` overrides the `installer_registry_config` setting.
+
+For example:
+
+```yaml
+name: Datadog Agent Install
+  include_role:
+    name: datadog.dd.agent
+  vars:
+    datadog_installer_registry: "my.local.registry"
+    datagog_yum_repo: "my.local.repo"
+    datadog_api_key: "MY_DATADOG_API_KEY"
+    datadog_site: "MY_DATADOG_SITE"
+```
+
 ## Role variables
 
 These variables provide additional configuration during the installation of the Datadog Agent. They should be specified in the `vars` section of your playbook.
@@ -96,8 +115,7 @@ These variables provide additional configuration during the installation of the 
 | `datadog_macos_user`                        | The name of the user to run Agent under. The user has to exist, it won't be created automatically. Defaults to `ansible_user` (macOS only).|
 | `datadog_macos_download_url`                | Override the URL to download the DMG installer from (macOS only).|
 | `datadog_apm_instrumentation_enabled`       | Configure APM instrumentation. Possible values are: <br/> - `host`: Both the Agent and your services are running on a host. <br/> - `docker`: The Agent and your services are running in separate Docker containers on the same host.<br/>- `all`: Supports all the previous scenarios for `host` and `docker` at the same time.|
-| `datadog_apm_instrumentation_libraries`     | List of APM libraries to install if `host` or `docker` injection is enabled (defaults to `["java", "js", "dotnet", "python", "ruby"]`). You can find the available values in [Inject Libraries Locally][24].|
-| `datadog_apm_instrumentation_docker_config` | Override Docker APM configuration. Read [configure Docker injection][23] for more details.|
+| `datadog_apm_instrumentation_libraries`     | List of APM libraries to install if `host` or `docker` injection is enabled (defaults to `["java", "js", "dotnet", "python", "ruby"]`). You can find the available values in [Inject Libraries Locally][21].|
 | `datadog_remote_updates`                    | Enable remote installation and updates through the datadog-installer.|
 
 ### Integrations
@@ -672,5 +690,4 @@ If you need to install the agent through Ansible but don't want to specify an AP
 [18]: https://docs.datadoghq.com/security/cspm/setup/?tab=docker
 [19]: https://github.com/DataDog/integrations-core
 [20]: https://github.com/DataDog/integrations-extras
-[23]: https://docs.datadoghq.com/tracing/trace_collection/library_injection_local/?tab=agentandappinseparatecontainers#configure-docker-injection
-[24]: https://docs.datadog.com/tracing/trace_collection/library_injection_local
+[21]: https://docs.datadog.com/tracing/trace_collection/library_injection_local
