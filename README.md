@@ -77,7 +77,7 @@ The Datadog Collection is tested on CentOS, Debian, Rocky Linux, OpenSUSE, Windo
 
 If you need support, you can create in issue in the `ansible-collections` GitHub repo, or contact [Datadog Support][1].
 
-## Release motes
+## Release notes
 
 You can follow changes in the [CHANGELOG][2] file.
 
