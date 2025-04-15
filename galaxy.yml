@@ -42,7 +42,7 @@ dependencies: {}
 repository: https://github.com/ansible-collections/Datadog
 
 # The URL to any online docs
-documentation: http://docs.example.com
+documentation: https://github.com/ansible-collections/Datadog/blob/main/README.md
 
 # The URL to the homepage of the collection/project
 homepage: https://www.datadoghq.com/

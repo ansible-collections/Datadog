@@ -32,4 +32,4 @@ jobs:
         - name: Check ansible-datadog formatting
           run: |
             pip install -r requirements.txt
-            ansible-lint -v
+            ansible-lint -v --profile production

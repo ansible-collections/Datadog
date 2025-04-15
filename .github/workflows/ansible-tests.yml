@@ -21,7 +21,7 @@ jobs:
       - name: Install the Ansible collection
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook with the collection
-        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
+        run: ansible-playbook -i ./ci_test/inventory/inventory.ini "./ci_test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python3'
       - name: Check datadog-agent version
         run: datadog-agent version
 
@@ -42,7 +42,7 @@ jobs:
       - name: Install the Ansible collection
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook with the collection
-        run: ansible-playbook -i ./test/inventory/inventory.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
+        run: ansible-playbook -i ./ci_test/inventory/inventory.ini "./ci_test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
 
@@ -89,7 +89,7 @@ jobs:
         shell: wsl-bash {0}
         run: |
           PASSWORD=$(cat .passwd)
-          ansible-playbook -i ./test/inventory/inventory_win.ini "./test/install_agent_${{ matrix.agent_version }}.yaml" -e "ansible_password=$PASSWORD" -vvv
+          ansible-playbook -i ./ci_test/inventory/inventory_win.ini "./ci_test/install_agent_${{ matrix.agent_version }}.yaml" -e "ansible_password=$PASSWORD" -vvv
       - name: Check agent is installed
         run: |
           & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" version
@@ -113,6 +113,6 @@ jobs:
       - name: Install the Ansible collection
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
       - name: Run ansible playbook with the collection
-        run: ansible-playbook -i ./test/inventory/inventory_macos.ini "./test/install_agent_${{ matrix.agent_version }}_macos.yaml"
+        run: ansible-playbook -i ./ci_test/inventory/inventory_macos.ini "./ci_test/install_agent_${{ matrix.agent_version }}_macos.yaml"
       - name: Check datadog-agent version exit 0
         run: datadog-agent version
