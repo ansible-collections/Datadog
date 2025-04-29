@@ -30,6 +30,9 @@ jobs:
       - name: Format ansible-datadog role
         run: |
           pip install -r requirements.txt
+          # Install collections in temporary directory to prevent default installation
+          mkdir -p /tmp/ansible_collections
+          export ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_collections
           ansible-galaxy collection install ansible.windows community.general
           inv role.format-fqcn
       - name: Check diff between roles/agent and ansible-role main branch
@@ -72,6 +75,9 @@ jobs:
       - name: Format ansible-datadog role
         run: |
           pip install -r requirements.txt
+          # Install collections in temporary directory to prevent default installation
+          mkdir -p /tmp/ansible_collections
+          export ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_collections
           ansible-galaxy collection install ansible.windows community.general
           inv role.format-fqcn
       - name: Run ansible-lint
