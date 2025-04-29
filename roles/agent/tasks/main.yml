@@ -1,11 +1,6 @@
 ---
-- name: Include Gather Ansible Facts task on Ansible >= 2.10
-  ansible.builtin.include_tasks: facts-ansible10.yml
-  when: ansible_version.major >= 2 and ansible_version.minor >= 10
-
-- name: Include Gather Ansible Facts task on Ansible < 2.10
-  ansible.builtin.include_tasks: facts-ansible9.yml
-  when: ansible_version.major == 2 and ansible_version.minor < 10
+- name: Gather Ansible Facts
+  ansible.builtin.setup: # If the full prefix isn't specified in Ansible 2.10+, we might end up running `ansible.windows.setup` instead.
 
 - name: Initialize internal datadog_config variable
   ansible.builtin.set_fact:
@@ -62,17 +57,13 @@
   ansible.builtin.include_tasks: pkg-macos.yml
   when: ansible_facts.os_family == "Darwin" and not agent_datadog_skip_install
 
-- name: Linux Configuration Tasks (Agent 5)
-  ansible.builtin.include_tasks: agent5-linux.yml
-  when: agent_datadog_agent_major_version | int == 5 and ansible_facts.os_family != "Windows"  and ansible_facts.os_family != "Darwin"
-
 - name: Linux Configuration Tasks
   ansible.builtin.include_tasks: agent-linux.yml
-  when: agent_datadog_agent_major_version | int > 5 and ansible_facts.os_family != "Windows" and ansible_facts.os_family != "Darwin"
+  when: ansible_facts.os_family != "Windows" and ansible_facts.os_family != "Darwin"
 
 - name: Windows Configuration Tasks
   ansible.builtin.include_tasks: agent-win.yml
-  when: agent_datadog_agent_major_version | int > 5 and ansible_facts.os_family == "Windows"
+  when: ansible_facts.os_family == "Windows"
 
 - name: MacOS Configuration Tasks
   ansible.builtin.include_tasks: agent-macos.yml
