@@ -1,8 +1,0 @@
----
-- name: Ensure Datadog agent is installed
-  community.general.zypper:
-    name: datadog-agent
-    state: latest # noqa package-latest
-  register: agent_datadog_agent_install
-  when: not ansible_check_mode
-  notify: restart datadog-agent
