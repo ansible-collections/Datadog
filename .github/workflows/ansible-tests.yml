@@ -25,27 +25,6 @@ jobs:
       - name: Check datadog-agent version
         run: datadog-agent version
 
-  ansible-tests-python2:
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [centos, amazonlinux2]
-        ansible_version: ["2_10", "4_10"]
-        agent_version: ["6", "7"]
-    container:
-      image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
-    steps:
-      - uses: actions/checkout@v1
-      - name: Build the Ansible collection
-        run: ansible-galaxy collection build
-      - name: Install the Ansible collection
-        run: ansible-galaxy collection install datadog-dd-*.tar.gz
-      - name: Run ansible playbook with the collection
-        run: ansible-playbook -i ./ci_test/inventory/inventory.ini "./ci_test/install_agent_${{ matrix.agent_version }}.yaml" -e 'ansible_python_interpreter=/usr/bin/python2'
-      - name: Check datadog-agent version exit 0
-        run: datadog-agent version
-
   ansible-tests-windows:
     runs-on: windows-2022
     strategy:
@@ -81,7 +60,7 @@ jobs:
         run: python3 -m pip install ansible==${{ matrix.ansible_version}}.* pywinrm
       - name: Build the Ansible collection
         shell: wsl-bash {0}
-        run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows
+        run: ansible-galaxy collection build && ansible-galaxy collection install ansible.windows:1.11.0
       - name: Install the Ansible collection
         shell: wsl-bash {0}
         run: ansible-galaxy collection install datadog-dd-*.tar.gz
