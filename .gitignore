@@ -2,3 +2,4 @@
 venv
 datadog-dd-*.tar.gz
 importer_result.json
+.ansible/
