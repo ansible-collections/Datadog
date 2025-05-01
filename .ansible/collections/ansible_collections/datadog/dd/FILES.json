@@ -1,0 +1,775 @@
+{
+ "files": [
+  {
+   "name": ".",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "LICENSE",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f747d1dbbe9c4e4f188366d31437e713f4958fad359a654397f262e2217b8ae5",
+   "format": 1
+  },
+  {
+   "name": "tasks",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "tasks/role.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2346bb813f50c49ec6f79a2a9de971568c52cf30e9b7a685155419605fa7a424",
+   "format": 1
+  },
+  {
+   "name": "tasks/__init__.py",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "76213c6d46b01afcdecd1cb89e2ccd39c9c9a1c50b7b866252bff2a9bfa34422",
+   "format": 1
+  },
+  {
+   "name": "NOTICE",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2e0a9f54455ccfa7de655bc8938c558366a2f46ec53beb2cb307685a4f7233c6",
+   "format": 1
+  },
+  {
+   "name": ".ansible-lint-ignore",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "417ed6f0072a0f757c757f0767ddb8c326b01aab3c10b605c1a17b7c835ceead",
+   "format": 1
+  },
+  {
+   "name": "CHANGELOG.rst",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2e528bf59b939e9a8053fff87820523201605768a771bdf53efd0690033792ab",
+   "format": 1
+  },
+  {
+   "name": "patches",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "patches/.gitkeep",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "format": 1
+  },
+  {
+   "name": ".ansible",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/collections/ansible_collections",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/collections/ansible_collections/datadog",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/.lock",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "format": 1
+  },
+  {
+   "name": ".ansible/roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": ".ansible/modules",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "galaxy-importer.cfg",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "57442ba09f8a40b77846d4ad0ceb0c6209b806d05776d8d592e764ebffb4458b",
+   "format": 1
+  },
+  {
+   "name": "CONTRIBUTING.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "598190ffc8d125355c0a63c05a6bce2148e625dc5831ad2c91f5621f573f476d",
+   "format": 1
+  },
+  {
+   "name": ".ansible-lint",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f82294e1fcf47b971274488f32a690717ff91c74467ce8cc8557944719183b3f",
+   "format": 1
+  },
+  {
+   "name": "ci_test",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "ci_test/install_agent_7_macos.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "8489a205c82f7f25415a2f6f1b25cad14be968feec5e7ee5c49f77c5c77e8cb0",
+   "format": 1
+  },
+  {
+   "name": "ci_test/inventory",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "ci_test/inventory/inventory_win.ini",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "906b64c7300fbe7a72e950518055c3e13f10ccf240ec10574fb3e9087f20d19e",
+   "format": 1
+  },
+  {
+   "name": "ci_test/inventory/inventory.ini",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "76e81c6bc7eddf2ea8bb7dc0f5e9c5b1912e112acd13eccfd26285c1ff264fd5",
+   "format": 1
+  },
+  {
+   "name": "ci_test/inventory/inventory_macos.ini",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "dd6ecb897965fec589f62cf2e6db52b8000c531495599067417667c5ada6c4b5",
+   "format": 1
+  },
+  {
+   "name": "ci_test/install_agent_7.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "887465f546996cdab28b4c613b65b59a7f2df8c8250cf48cd660c4e78fff8f69",
+   "format": 1
+  },
+  {
+   "name": "ci_test/install_agent_6_macos.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "8bc6f4b129e47ce210ff85ba31c8bfe545cb025512a2df9e69b65fc027a1bedd",
+   "format": 1
+  },
+  {
+   "name": "ci_test/install_agent_6.yaml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "0b910900e9b46b943ff700d037a34a298e833d151a6a4ea5bf7b9cbe2e05333b",
+   "format": 1
+  },
+  {
+   "name": "roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/.github",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/handlers",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/handlers/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5b31619bb443ff179ba69d588bd3810cd59e84173d9d4d53ec510bb25fba7703",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/handlers/main-win.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9db6ff54009ce9f224f4800a4698eb4c3dd4c474352ecf5e58a702814b80ddc2",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/handlers/main-macos.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "136b0cb329d31f42f988fcc1827d02c12d490d9ed391eaa796e22f49b947ce65",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2a146d50979f175fdd2c84037abf241f7022e4572c023ed98e31e78820edf792",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c27e8e62ea9634189c4fabb57fbfad9854e2df776391f2d7404d351c04a63479",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-suse",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-suse/install-pinned.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e6a70a904a281f14734337e1ea7a4710a72af9968f0392efc0de2d233a746ce0",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-suse/install-latest.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4547773862f64c18b531eb3237e1275f4566a1c7bcaf0e119e1e122d4ab08bb4",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-suse/install-installer-zypper.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1229a36424067a041a18350ae39890733dd21079f4c9e568d256b5de18e0c670",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-windows.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2f925a5e706e6f84a9531275c899dde4586e2cb55dcc7ae01f48de0557373a04",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/agent-win.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f0587088eb23e0cd413c5dd161c52134d8b5fb18071fef0134b5b722b38ec85f",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/parse-version-macos.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "2068dd336da6898c8a340abd7536d1264f961982cc79013385dc26fb6e579cfa",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-redhat",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-redhat/install-installer-dnf.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "c95f00d2b0d7358062a5adee8878380c8af74e3389dec52ed01af34a7776f653",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-redhat/install-pinned.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "5cef96a3b11fea5bbafa39411b67fcd87fd96dad519e476966499d03ebe15981",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-redhat/install-latest.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "135b488ff9dd86fda5992998263e02715575a2c41e5210e3338f24ab1593c599",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-debian.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "a10a5d2c7fa3f2ceb0a170e18d9e079ffa0969bc792443448333b96e22e4c69a",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/_remove_rpm_keys.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "27ab05518d217d9fb9e10576a7e96ce615a4b9279fcc22458bc7b8bc607e08f4",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-suse.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6de37a3385652972ee3c54b1f2243e91d302820716a64bd8b78452494e68e072",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-windows-opts.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "923dae8b6c9d272b7952bbfdee487dcf3a15e54962e56a088f9f077582e2141a",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-redhat.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "a052b30dac729478a3ec89cc578934dce36abed2fd0a17e0377138655ef5b0c9",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-debian",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-debian/install-installer.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "ad983a6ac51db245f178d4c3c6a8ec7d069bfc61f045a05327dd1e697c996c51",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-debian/install-pinned.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6738937362c49b057ae85e913733139b5c5a0a66df20ad63b20ab35ddb3ccd3c",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-debian/install-latest.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "09b7d8e031cf301118d3461257d04092a17a9b9e83cec963ba6bcd8a9083eba6",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/agent-linux.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "769cccfdb0392960dffb6c1bc121184d40ba2264ac621e9be8d981565678a49f",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/agent-macos.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "3736233ca0d774c7e217cce4206d6d6a3791b2a1ef9ddc36e613826b10e87634",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/sanitize-checks.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "0c8ffc1301b97becbb47d4a53a2cc68990c567c197f4df2d0d5a5563ccf36c33",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/win_agent_version.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1ba2b8b2c0e5d03eb20dd2c6b4197be1ebe444475997952229a301b48e61b296",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/parse-version-windows.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "9f8805ecffbd7d1184927bfbe41b484a752ddb7e8981eba6a5b7dc2f47fd36ac",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-macos",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-macos/macos_agent_version.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "59f6fa2af4fbff8ec192293b7d3aeda96453f2ebd54797cd727e10615b8921b9",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-macos/macos_agent_latest.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "7e30cbf74d1b40066e0c144ad9d786efcd0321ffe0ac014c71c0e5d5cd5a7931",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/set-parse-version.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "e905839d1570623a31e5f066fc6bf16608b47e03e4c1ccffe58676c4b7148627",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/installer-config.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "4a985bc6426a991493826b6fa5e963414661ee6d930b6d5c5c61c5adf9e43e1d",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/check-removed-config.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "ffcdf896dde3818dc9a6a71c250a1b7ccef40ce964fe52658749629a5f1a2505",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration/windows.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "eaa3683da690189e44c23eddd35ab07847757d0c1862133095383c915c4e7904",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration/linux.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "389b920e306d870876b12ceb2f385f8146004bebe5662c090fbd3cfc3fd65363",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration/_linux-macos-shared.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "3880fc9f0be6d7a80392e483884a752f2e20826ae0cba977f2cbf415a9577efe",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration/macos.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "40fc84a3948bbd7dadca51a960c9feadaafa5dd7c67dda4fad0048760ad3b04c",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/integration/_windows-integration-update.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "3405289586dc6d41472bf398a4efa735789cdd569d3de61a302fad0498690410",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/installer-setup.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "838fd4c76cd58a3fcec8f606c0c4963570f6ca8077c35cd3cae1777d22d62836",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/parse-version.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "22be65d130b6f4b2d29f2519b0b856d63ca1e7c9bd4a00157d3c61674f3ba6f8",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/win_agent_latest.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "127368b681f58f6b1e3bf2e41a846a679d0d771ae591b19356c0638d643a8835",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/os-check.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "47b2e09802326df30f4eb988b755c166693f774505c257fadb43301f1788e453",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/pkg-macos.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "820b82f80d808e2858df48c74358dbc0727aa48b6c368fc2f0e79c5507fd57d4",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/_agent-linux-macos-shared.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "7b9506b02a7006fbbc967602f92b92e369ab331d84dabf9e2f4ce1814b255a66",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/tasks/_apt-key-import.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "065713a670fa9ec9e8e1bc5bbff5babcd95869ffa9e9b4e1f91895e125fec121",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/.ansible",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/defaults",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/defaults/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "6e4aec8bfa1512869265ba22a2e24873bb40e5b4f9364b39c11c5203c1fdc62f",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/ci_test",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/ci_test/inventory",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/install_info.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "d617ac45faf2390ef7e1a55bbad34ded834b7cef1c29655738cf5aea8bc40f9f",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/datadog.conf.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "ee99c91cbe0be6bde5db5391b05d16471a535a80dca85a1fd331ce6975f43867",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/system-probe.yaml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "beff511eaf0d1a172f3c30135a3b711f096b49d6f950c9d41df30e1592e776d0",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/installer-logs.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "8f11a5d110d9f2a590ddbf1d5897586f36ca4ebb9470914a0852aa742c3cfd18",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/com.datadoghq.agent.plist.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "8214e801be42445fd95ada81b9c5895fd3560e529476b0527fa24dd4d2e509e3",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/datadog.yaml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "a5087f1992317c4da474b59f7e77bdb96c91c72a53579626ee491f484d6a8bc7",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/checks.yaml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "1257efb5b85eddbc3fa785b222aaae77d81871c9ceea48581a92e6e772372a75",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/install.json.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "0be2f3396fd10f494f61401c919b3ec3b189c20ec64b78cdb864987083de36bb",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/security-agent.yaml.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "98b10e0d754b384c52d4f754fb486a55310cb392549407a7ab8e91c88ceabfa7",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/zypper.repo.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f584f951e7c55b34cc03dca1d105c6ba5b0b0e58f82fd8214840416e117a2e4e",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/templates/installer-telemetry.j2",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "98208211ef1ff4c53dda923776716d510005fa657678100e5e08583cb514cc13",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/manual_tests",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/meta/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "53943bc8e039317fcc91ba52a7c12b2a996219301515af1244a4c2ec607d7ff2",
+   "format": 1
+  },
+  {
+   "name": "roles/agent/.circleci",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/agent/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "63ba24b41b3ec7a33068acb1b6a253312aff6bcbfa080c17ce9f5b388ad98d8d",
+   "format": 1
+  },
+  {
+   "name": "plugins",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "plugins/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "854081319843a15a95afeee3d0d6f5a17bd7f57ec0ad89e6c96e1481d4e8f64a",
+   "format": 1
+  },
+  {
+   "name": "meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta/runtime.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "b4b2bbf3773b2367cf67fdb295ce94d8f654a24f743823012170eab2cfc9f7c3",
+   "format": 1
+  },
+  {
+   "name": "README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "058d5fc7f29bbad642599a8b2f12961e2b5f48af499487081f6a864a6e40e003",
+   "format": 1
+  }
+ ],
+ "format": 1
+}
