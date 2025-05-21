@@ -1,5 +1,5 @@
 ---
-role_version: 5.1.1
+role_version: 5.2.0
 
 # define if the datadog-agent services should be enabled
 datadog_enabled: true
@@ -201,6 +201,9 @@ datadog_installer_registry: ""
 datadog_installer_auth: ""
 datadog_installer_version: ""
 installer_registry_config: {}
+
+# Version for the datadog apm inject package
+datadog_apm_inject_version: ""
 
 #
 # Internal variables
