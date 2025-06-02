@@ -1,2 +1,2 @@
 invoke==2.2.0
-galaxy-importer==0.4.29
+galaxy-importer==0.4.30
