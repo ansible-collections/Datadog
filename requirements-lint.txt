@@ -1,0 +1,3 @@
+# Requirements for ansible-lint CI job (Python 3.10+)
+ansible-lint>=25.7.0
+# ansible-core will be pulled in automatically as a dependency 

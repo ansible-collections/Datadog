@@ -80,9 +80,13 @@ jobs:
           export ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_collections
           ansible-galaxy collection install ansible.windows community.general
           inv role.format-fqcn
+      - name: Setup Python 3.10+ for ansible-lint
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
       - name: Run ansible-lint
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements-lint.txt
           ansible-lint -v
       - name: Create a PR with new changes
         run: |
