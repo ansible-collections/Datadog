@@ -27,9 +27,13 @@ jobs:
         run: |
           # Keep only non-git related files in the folder
           find roles/agent/ -not -path '*defaults*' -not -path '*tasks*' -not -path '*templates*' -not -path '*handlers*' -not -name '.gitkeep' -not -path '*meta*' -not -name 'README.md' -type f -exec rm -r {} \; 
+      - name: Setup Python 3.10+ for formatting tools
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
       - name: Format ansible-datadog role
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements-lint.txt
           # Install collections in temporary directory to prevent default installation
           mkdir -p /tmp/ansible_collections
           export ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_collections
@@ -72,9 +76,13 @@ jobs:
         run: |
           collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
           sed -i "s/datadog_role/datadog_collection_${collection_version}_agent_role/g" roles/agent/templates/install_info.j2
+      - name: Setup Python 3.10+ for formatting tools  
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
       - name: Format ansible-datadog role
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements-lint.txt
           # Install collections in temporary directory to prevent default installation
           mkdir -p /tmp/ansible_collections
           export ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_collections
