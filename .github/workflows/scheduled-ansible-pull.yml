@@ -11,7 +11,7 @@ jobs:
     outputs:
       check-output: ${{ steps.check-diff.outputs.sync-needed }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: actions/checkout@master
         with:
           repository: DataDog/ansible-datadog
@@ -45,7 +45,7 @@ jobs:
     needs: check
     if: "${{ needs.check.outputs.check-output == 'true' }}"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # Using a deploy key is required to trigger on_push workflows when pushing changes.
           # https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#workarounds-to-trigger-further-workflow-runs
