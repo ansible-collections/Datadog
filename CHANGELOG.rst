@@ -1,3 +1,8 @@
+6.2.0 / 2025-09-04
+==================
+
+* The collection contains the `Agent role 5.3.0 <https://github.com/DataDog/ansible-datadog/blob/main/CHANGELOG.md#530--2025-09-03>`_.
+
 6.1.1 / 2025-06-04
 ==================
 
