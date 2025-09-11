@@ -57,7 +57,7 @@ The Datadog Ansible collection is also available through the [Red Hat Automation
 
 ### Installing the Agent
 Follow the [in-app instructions in Fleet Automation][8] to install the Datadog Ansible Collection for your platform (Linux, Windows or macOS) and copy a pre-filled playbook snippet. 
-**Note**: you must run Ansible `v2.10` or higher.
+**Note**: You must run Ansible `v2.10` or higher.
 
 
 ### Deploying the Agent
