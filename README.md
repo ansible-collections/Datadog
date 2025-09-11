@@ -1,10 +1,11 @@
 # Datadog Ansible Collection
 
-## Description
+## Overview
 
-The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansible-related Datadog content. It contains the [Ansible Datadog Role](https://github.com/DataDog/ansible-datadog/), which can be accessed as `datadog.dd.agent`, allowing you to install and configure the Datadog Agent and integrations. Agent version 7 is installed by default.
+The [Datadog Ansible collection][7], `datadog.dd`, is the official collection of Ansible-related Datadog content. It contains the [Ansible Datadog Role](https://github.com/DataDog/ansible-datadog/), which can be accessed as `datadog.dd.agent`, allowing you to install and configure the Datadog Agent and integrations. 
 
-## Requirements
+
+## Prerequisites
 
 - Ansible v2.10+.
 - Supports most Debian, RHEL-based and SUSE-based Linux distributions, macOS, and Windows.
@@ -19,7 +20,9 @@ The Datadog Ansible collection, `datadog.dd`, is the official collection of Ansi
   ansible-galaxy collection install community.general
   ```
 
-## Installation
+## Setup
+
+### Installing Ansible collection
 
 Before using this collection, install it with the Ansible Galaxy command-line tool:
 
@@ -52,7 +55,7 @@ See [using Ansible collections](https://docs.ansible.com/ansible/devel/user_guid
 
 The Datadog Ansible collection is also available through the [Red Hat Automation Hub](https://console.redhat.com/ansible/automation-hub/repo/published/datadog/dd/), where it is officially certified by Red Hat.
 
-## Use cases
+### Deploying the Datadog Agent
 
 To deploy the Datadog Agent on hosts, add the Datadog role and your API key to your playbook:
 
@@ -75,7 +78,7 @@ The Datadog Collection is tested on CentOS, Debian, Rocky Linux, OpenSUSE, Windo
 
 ## Support
 
-If you need support, you can create in issue in the `ansible-collections` GitHub repo, or contact [Datadog Support][1].
+If you need support, you can create an issue in the [`ansible-collections` GitHub repo][7], or contact [Datadog Support][1].
 
 ## Release notes
 
@@ -98,4 +101,6 @@ The Datadog Ansible collection is published under [Apache License 2.0][5].
 [4]: https://github.com/DataDog/ansible-datadog#readme
 [5]: https://github.com/ansible-collections/Datadog/blob/main/LICENSE
 [6]: https://www.datadoghq.com/blog/datadog-ansible-collection/
+[7]: https://github.com/ansible-collections/Datadog
+
 
