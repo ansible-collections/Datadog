@@ -22,7 +22,7 @@ The [Datadog Ansible collection][7], `datadog.dd`, is the official collection of
 
 ## Setup
 
-### Installing Ansible collection
+### Installing the ansible collection
 
 Before using this collection, install it with the Ansible Galaxy command-line tool:
 
@@ -55,7 +55,12 @@ See [using Ansible collections](https://docs.ansible.com/ansible/devel/user_guid
 
 The Datadog Ansible collection is also available through the [Red Hat Automation Hub](https://console.redhat.com/ansible/automation-hub/repo/published/datadog/dd/), where it is officially certified by Red Hat.
 
-### Deploying the Datadog Agent
+### Installing the Agent
+Follow the [in-app instructions in Fleet Automation][8] to install the Datadog Ansible Collection for your platform (Linux, Windows or macOS) and copy a pre-filled playbook snippet. 
+**Note**: you must run Ansible `v2.10` or higher.
+
+
+### Deploying the Agent
 
 To deploy the Datadog Agent on hosts, add the Datadog role and your API key to your playbook:
 
@@ -102,5 +107,6 @@ The Datadog Ansible collection is published under [Apache License 2.0][5].
 [5]: https://github.com/ansible-collections/Datadog/blob/main/LICENSE
 [6]: https://www.datadoghq.com/blog/datadog-ansible-collection/
 [7]: https://github.com/ansible-collections/Datadog
+[8]: https://app.datadoghq.com/fleet/install-agent/latest?platform=ansible
 
 
