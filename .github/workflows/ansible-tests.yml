@@ -15,7 +15,7 @@ jobs:
     container:
       image: datadog/docker-library:ansible_${{ matrix.os }}_${{ matrix.ansible_version }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v6
       - name: Build the Ansible collection
         run: ansible-galaxy collection build
       - name: Install the Ansible collection
@@ -38,7 +38,7 @@ jobs:
           Enable-PSRemoting
           Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
           Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v6
       - uses: Vampire/setup-wsl@v2
         with:
           distribution: Ubuntu-22.04
@@ -81,7 +81,7 @@ jobs:
         agent_version: ["6", "7"]
         ansible_version: ["2.10", "4.10"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
