@@ -1,5 +1,5 @@
 invoke==2.2.0
 galaxy-importer==0.4.31
 # Use highest ansible-lint version supported by galaxy-importer 0.4.31
-ansible-lint==25.5.0
+ansible-lint==25.12.2
 ansible-core>=2.19.0
