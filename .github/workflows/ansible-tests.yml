@@ -74,7 +74,7 @@ jobs:
           & "$env:ProgramFiles\Datadog\Datadog Agent\bin\agent.exe" version
 
   ansible-tests-macos:
-    runs-on: macos-13
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
