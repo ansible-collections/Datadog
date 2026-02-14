@@ -10,7 +10,7 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v6
             - name: Check if collection version correctly matches install_info
               run: |
                 galaxy_collection_version=$(cat galaxy.yml | grep "version:" | awk -F: '{print $2}' | xargs)
@@ -28,7 +28,7 @@ jobs:
     ansible_lint:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v6
         - name: Check ansible-datadog formatting
           run: |
             pip install -r requirements.txt
