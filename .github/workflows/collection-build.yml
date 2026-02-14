@@ -28,7 +28,7 @@ jobs:
             exit 1
           fi
       - name: Archive recent build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: collection-build
           path: datadog-dd-*.tar.gz
