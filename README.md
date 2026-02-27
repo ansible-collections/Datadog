@@ -30,7 +30,7 @@ Before using this collection, install it with the Ansible Galaxy command-line to
 ansible-galaxy collection install datadog.dd
 ```
 
-Alternatively, include it in a `requirements.yml` file and install it with `ansible-galaxy collection install -r requirements.yml`. Include the following in `requirments.yml`:
+Alternatively, include it in a `requirements.yml` file and install it with `ansible-galaxy collection install -r requirements.yml`. Include the following in `requirements.yml`:
 
 
 ```yaml
