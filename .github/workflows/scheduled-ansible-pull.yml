@@ -109,7 +109,7 @@ jobs:
     needs: [check, execute]
     if: "${{ always() && contains(needs.*.result, 'failure') }}"
     steps:
-      - name: Notify the workflow failure to agent-onboarding
+      - name: Notify the workflow failure to telemetry-onboarding-ops
         run: |
           payload="{\"text\":\":alert_party: The ansible-collection sync workflow failed ! Please check the following <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|workflow error>.\"}"
           curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_URL
