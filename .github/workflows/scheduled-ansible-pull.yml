@@ -38,7 +38,7 @@ jobs:
       - name: Check diff between roles/agent and ansible-role main branch
         id: check-diff
         run: |
-          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x install_info.j2 -x LICENSE -x ci_test -x manual_tests -x "requirements*" -pur roles/agent/ ansible-role/ || echo "sync-needed=true" >> $GITHUB_OUTPUT
+          diff -x "\.*" -x CHANGELOG.md -x CONTRIBUTING.md -x install_info.j2 -x LICENSE -x ci_test -x manual_tests -x "requirements*" -x "*.json" -pur roles/agent/ ansible-role/ || echo "sync-needed=true" >> $GITHUB_OUTPUT
 
   execute:
     runs-on: ubuntu-latest
@@ -89,7 +89,12 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git checkout -b github-action/sync-$GITHUB_ID
-          git add . && git commit -m "Pull ansible-datadog"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to sync; exiting cleanly."
+            exit 0
+          fi
+          git commit -m "Pull ansible-datadog"
           git push --set-upstream origin github-action/sync-$GITHUB_ID
           PR_URL=$(gh pr create --title 'Pull latest ansible-datadog version inside of the collection' --body 'Pull latest ansible-datadog version inside of the collection')
           gh pr merge $PR_URL --squash --auto
@@ -104,7 +109,7 @@ jobs:
     needs: [check, execute]
     if: "${{ always() && contains(needs.*.result, 'failure') }}"
     steps:
-      - name: Notify the workflow failure to agent-onboarding
+      - name: Notify the workflow failure to telemetry-onboarding-ops
         run: |
           payload="{\"text\":\":alert_party: The ansible-collection sync workflow failed ! Please check the following <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|workflow error>.\"}"
           curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_URL
